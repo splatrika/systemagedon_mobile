@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 727145836}
   - component: {fileID: 727145835}
   - component: {fileID: 727145840}
+  - component: {fileID: 727145842}
+  - component: {fileID: 727145841}
   m_Layer: 0
   m_Name: TestPlanet
   m_TagString: Untagged
@@ -341,6 +343,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetObject: {fileID: 727145834}
   _velocity: 10
+--- !u!114 &727145841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727145834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9fe643b32966481ab3ed300cbd9a086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 727145840}
+  _strength: 0
+  _duration: 0
+--- !u!114 &727145842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727145834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801cb1a12ba4b46008bf6299ec20c8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 727145840}
+  _orbit: {fileID: 727145835}
+  _dash: {fileID: 727145841}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
