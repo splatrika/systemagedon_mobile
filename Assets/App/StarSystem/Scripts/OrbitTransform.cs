@@ -4,9 +4,14 @@ using Systemagedon.App.Movement;
 namespace Systemagedon.App.StarSystem
 {
     [ExecuteInEditMode]
-    public class OrbitTransform : MonoBehaviour, IOneAxisTransform
+    public class OrbitTransform : MonoBehaviour, IOneAxisTransform, IRounded
     {
         float IOneAxisTransform.Position { get => _anglePosition; }
+
+
+        public float AnglePosition { get => _anglePosition; }
+        public float Radius { get => _radius; }
+        public Vector3 Center { get; private set; }
 
 
         [SerializeField] private float _anglePosition;
@@ -47,7 +52,9 @@ namespace Systemagedon.App.StarSystem
 
         private void Start()
         {
+            _transform = transform;
             ApplyPosition(_anglePosition, _radius);
+            ActualizeCenter();
         }
 
 
@@ -61,6 +68,17 @@ namespace Systemagedon.App.StarSystem
         private void OnDisable()
         {
             _transform.hideFlags = HideFlags.None;
+        }
+
+
+        private void ActualizeCenter()
+        {
+            if (!_transform.parent)
+            {
+                Center = Vector3.zero;
+                return;
+            }
+            Center = _transform.parent.position;
         }
 
 

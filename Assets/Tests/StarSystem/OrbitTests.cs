@@ -49,6 +49,23 @@ namespace Systemagedon.Tests
             Assert.AreEqual(regularVelocity, movement.Velocity);
         }
 
+
+        [UnityTest]
+        public IEnumerator OrbitCenter()
+        {
+            GameObject testingPrefab =
+                PrefabUtility.LoadPrefabContents("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
+            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
+                EditorSceneManager.GetActiveScene());
+            GameObject root = new GameObject();
+            OrbitTransform orbit = testingPrefab.GetComponent<OrbitTransform>();
+            testingPrefab.transform.parent = root.transform;
+            root.transform.position = Vector3.back;
+            yield return null;
+            Assert.AreEqual(root.transform.position, orbit.Center,
+                "Center of orbit must be equals position of orbit's parent");
+        }
+
     }
 
 }
