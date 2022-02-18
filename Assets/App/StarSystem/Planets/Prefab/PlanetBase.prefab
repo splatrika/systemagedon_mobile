@@ -90,5 +90,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 3937831565421367304}
-  _strength: 0
-  _duration: 0
+  _strength: 2
+  _duration: 1
