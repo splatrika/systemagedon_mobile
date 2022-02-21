@@ -15,9 +15,16 @@ namespace Systemagedon.App.Movement
         [SerializeField] private float _duration;
 
 
+        private Coroutine _previousCoroutine;
+
+
         public void ApplyDash()
         {
-            StartCoroutine(DashCoroutine(_duration));
+            if (_previousCoroutine != null)
+            {
+                StopCoroutine(_previousCoroutine);
+            }
+            _previousCoroutine = StartCoroutine(DashCoroutine(_duration));
         }
 
 
@@ -40,11 +47,12 @@ namespace Systemagedon.App.Movement
             while (_timeLeft > 0)
             {
                 float factor = _timeLeft / duration;
-                float _velocityToApply = _regularVelocity + _strength * factor;
-                _target.ApplyVelocity(_velocityToApply);
+                float _additionalVelocity = _strength * factor;
+                _target.SetAdditionalVelocity(_additionalVelocity);
                 yield return null;
                 _timeLeft -= Time.deltaTime;
             }
+            _target.SetAdditionalVelocity(0);
             _target.ApplyVelocity(_regularVelocity);
         }
     }

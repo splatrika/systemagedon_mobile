@@ -11,6 +11,7 @@ namespace Systemagedon.App.Movement
 
         [SerializeField] private GameObject _targetObject;
         [SerializeField] private float _velocity;
+        [SerializeField] private float _additionalVelocity = 0;
 
 
         private IOneAxisTransform _target;
@@ -22,13 +23,21 @@ namespace Systemagedon.App.Movement
         }
 
 
+        public void SetAdditionalVelocity(float value)
+        {
+            _additionalVelocity = value;
+        }
+
+
         private void Update()
         {
             if (Target == null)
             {
                 throw new NullReferenceException("Target must be assigned");
             }
-            Target.SetPosition(Target.Position + _velocity * Time.deltaTime);
+            float _completeVelocity =
+                _velocity + (_velocity / Mathf.Abs(_velocity)) * _additionalVelocity;
+            Target.SetPosition(Target.Position + _completeVelocity * Time.deltaTime);
         }
 
 
