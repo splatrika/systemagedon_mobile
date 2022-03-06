@@ -7,6 +7,8 @@ namespace Systemagedon.App.Movement
     {
         public IOneAxisTransform Target { get => _target; }
         public float Velocity { get => _velocity; }
+        public float AdditionalVelocity { get => _additionalVelocity; }
+        public float TotalVelocity { get => _velocity + _additionalVelocity; }
 
 
         [SerializeField] private GameObject _targetObject;
@@ -35,9 +37,11 @@ namespace Systemagedon.App.Movement
             {
                 throw new NullReferenceException("Target must be assigned");
             }
-            float _completeVelocity =
-                _velocity + (_velocity / Mathf.Abs(_velocity)) * _additionalVelocity;
-            Target.SetPosition(Target.Position + _completeVelocity * Time.deltaTime);
+            float directionModifier = (_velocity != 0)
+                ? Mathf.Sign(_velocity)
+                : 1;
+            float completeVelocity = _velocity + _additionalVelocity * directionModifier;
+            Target.SetPosition(Target.Position + completeVelocity * Time.deltaTime);
         }
 
 

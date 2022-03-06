@@ -15,16 +15,16 @@ namespace Systemagedon.App.Movement
         [SerializeField] private float _duration;
 
 
-        private Coroutine _previousCoroutine;
+        private Coroutine _previousDash;
 
 
         public void ApplyDash()
         {
-            if (_previousCoroutine != null)
+            if (_previousDash != null)
             {
-                StopCoroutine(_previousCoroutine);
+                StopCoroutine(_previousDash);
             }
-            _previousCoroutine = StartCoroutine(DashCoroutine(_duration));
+            _previousDash = StartCoroutine(DashCoroutine(_duration));
         }
 
 
@@ -42,7 +42,6 @@ namespace Systemagedon.App.Movement
 
         private IEnumerator DashCoroutine(float duration)
         {
-            float _regularVelocity = _target.Velocity;
             float _timeLeft = duration;
             while (_timeLeft > 0)
             {
@@ -53,7 +52,6 @@ namespace Systemagedon.App.Movement
                 _timeLeft -= Time.deltaTime;
             }
             _target.SetAdditionalVelocity(0);
-            _target.ApplyVelocity(_regularVelocity);
         }
     }
 }
