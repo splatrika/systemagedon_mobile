@@ -41,12 +41,12 @@ namespace Systemagedon.Tests
             Dash dash = testingPrefab.GetComponent<Dash>();
             float regularVelocity = movement.Velocity;
             dash.ApplyDash();
-            Assert.AreEqual(regularVelocity + dash.Strength, movement.Velocity);
+            Assert.AreEqual(regularVelocity + dash.Strength, movement.TotalVelocity);
             yield return new WaitForSeconds(dash.Duration / 2);
-            Assert.Greater(movement.Velocity, regularVelocity);
-            Assert.Less(movement.Velocity, regularVelocity + dash.Strength);
+            Assert.Greater(movement.TotalVelocity, regularVelocity);
+            Assert.Less(movement.TotalVelocity, regularVelocity + dash.Strength);
             yield return new WaitForSeconds(dash.Duration / 2 + 0.5f);
-            Assert.AreEqual(regularVelocity, movement.Velocity);
+            Assert.AreEqual(regularVelocity, movement.TotalVelocity);
         }
 
 

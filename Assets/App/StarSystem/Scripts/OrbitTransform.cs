@@ -18,7 +18,7 @@ namespace Systemagedon.App.StarSystem
         [SerializeField] private float _radius;
 
 
-        Transform _transform;
+        private Transform _transform;
 
 
         public void SetPosition(float value)
