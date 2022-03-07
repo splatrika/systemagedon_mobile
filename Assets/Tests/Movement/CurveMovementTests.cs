@@ -17,9 +17,7 @@ namespace Systemagedon.Tests
         public IEnumerator Movement()
         {
             GameObject testingPrefab =
-                    PrefabUtility.LoadPrefabContents("Assets/Tests/Movement/Prefabs/CurveMovementTests.prefab");
-            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
-                EditorSceneManager.GetActiveScene());
+                TestsUtility.MakePrefabReady("Assets/Tests/Movement/Prefabs/CurveMovementTests.prefab");
             yield return null;
             CurveMovement movement = testingPrefab.GetComponent<CurveMovement>();
             Vector3 previousPosition = movement.transform.position;
