@@ -58,7 +58,7 @@ namespace Systemagedon.App.Movement
             {
                 return;
             }
-            Dash touchedDash = touched.GetComponent<Dash>();
+            Dash touchedDash = touched.GetComponentInChildren<Dash>();
             bool dashCanControlled = touchedDash
                 && _controlledDashes.FirstOrDefault(dash => dash == touchedDash);
             if (dashCanControlled)
