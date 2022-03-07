@@ -50,21 +50,7 @@ namespace Systemagedon.App.Movement
         }
 
 
-        private void OnEnable()
-        {
-            _transform = transform;
-            BakeCurve();
-            ApplyTransform();
-        }
-
-
-        private void OnValidate()
-        {
-            BakeCurve();
-        }
-
-
-        private void ApplyTransform()
+        public Vector3 CalculatePoint(float position)
         {
             if (_position > _length)
             {
@@ -81,7 +67,27 @@ namespace Systemagedon.App.Movement
             {
                 localT = 0;
             }
-            _transform.localPosition = Vector3.Lerp(segment.StartPoint, segment.EndPoint, localT);
+            return Vector3.Lerp(segment.StartPoint, segment.EndPoint, localT);
+        }
+
+
+        private void OnEnable()
+        {
+            _transform = transform;
+            BakeCurve();
+            ApplyTransform();
+        }
+
+
+        private void OnValidate()
+        {
+            BakeCurve();
+        }
+
+
+        private void ApplyTransform()
+        {
+            _transform.localPosition = CalculatePoint(_position);
         }
 
 

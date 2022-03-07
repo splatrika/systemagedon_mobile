@@ -31,6 +31,22 @@ namespace Systemagedon.App.Movement
         }
 
 
+        public Vector3 CalculatePoint(float afterSeconds, float fromPosition)
+        {
+            return _target.CalculatePoint(_target.Position + TotalVelocity * afterSeconds);
+        }
+
+
+        public Vector3 CalculatePoint(float afterSeconds)
+        {
+            if (Target == null)
+            {
+                throw new NullReferenceException("Target must be assigned");
+            }
+            return CalculatePoint(afterSeconds, _target.Position);
+        }
+
+
         private void Update()
         {
             if (Target == null)

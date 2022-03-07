@@ -33,6 +33,17 @@ namespace Systemagedon.App.StarSystem
         }
 
 
+
+        public Vector3 CalculatePoint(float position)
+        {
+            Vector3 point = new Vector3();
+            point.x = Mathf.Sin(_anglePosition);
+            point.z = Mathf.Cos(_anglePosition);
+            point *= _radius;
+            return point;
+        }
+
+
         private void SetValueAndApplyPosition<T>(ref T field, T value)
         {
             field = value;
@@ -42,11 +53,7 @@ namespace Systemagedon.App.StarSystem
 
         private void ApplyPosition(float angle, float radius)
         {
-            Vector3 updatedPosition = new Vector3();
-            updatedPosition.x = Mathf.Sin(angle);
-            updatedPosition.z = Mathf.Cos(angle);
-            updatedPosition *= radius;
-            _transform.localPosition = updatedPosition;
+            _transform.localPosition = CalculatePoint(_anglePosition);
         }
 
 
@@ -80,7 +87,5 @@ namespace Systemagedon.App.StarSystem
             }
             Center = _transform.parent.position;
         }
-
-
     }
 }
