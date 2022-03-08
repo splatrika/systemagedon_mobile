@@ -7,6 +7,8 @@ namespace Systemagedon.App.Movement
     {
         public IOneAxisTransform Target { get => _target; }
         public float Velocity { get => _velocity; }
+        public float AdditionalVelocity { get => _additionalVelocity; }
+        public float TotalVelocity { get => _velocity + _additionalVelocity; }
 
 
         [SerializeField] private GameObject _targetObject;
@@ -23,9 +25,39 @@ namespace Systemagedon.App.Movement
         }
 
 
+        public void SetVelocity(float value)
+        {
+            _velocity = value;
+        }
+
+
         public void SetAdditionalVelocity(float value)
         {
             _additionalVelocity = value;
+        }
+
+
+        public Vector3 CalculatePoint(float afterSeconds, float fromPosition)
+        {
+            return _target.CalculatePoint(fromPosition + TotalVelocity * afterSeconds);
+        }
+
+
+        public Vector3 CalculatePoint(float afterSeconds)
+        {
+            if (Target == null)
+            {
+                throw new NullReferenceException("Target must be assigned");
+            }
+            return CalculatePoint(afterSeconds, _target.Position);
+        }
+
+
+        public float CalculateSeconds(float fromPosition, float toPosition)
+        {
+            //TODO Add checking acceptable range
+            float distance = Mathf.Abs(toPosition - fromPosition);
+            return distance / TotalVelocity;
         }
 
 
@@ -35,9 +67,11 @@ namespace Systemagedon.App.Movement
             {
                 throw new NullReferenceException("Target must be assigned");
             }
-            float _completeVelocity =
-                _velocity + (_velocity / Mathf.Abs(_velocity)) * _additionalVelocity;
-            Target.SetPosition(Target.Position + _completeVelocity * Time.deltaTime);
+            float directionModifier = (_velocity != 0)
+                ? Mathf.Sign(_velocity)
+                : 1;
+            float completeVelocity = _velocity + _additionalVelocity * directionModifier;
+            Target.SetPosition(Target.Position + completeVelocity * Time.deltaTime);
         }
 
 

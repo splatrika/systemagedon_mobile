@@ -16,9 +16,7 @@ namespace Systemagedon.Tests
         public IEnumerator OrbitMovement()
         {
             GameObject testingPrefab =
-                PrefabUtility.LoadPrefabContents("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
-            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
-                EditorSceneManager.GetActiveScene());
+                TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
             OneAxisMovement movement = testingPrefab.GetComponent<OneAxisMovement>();
             IOneAxisTransform transform = testingPrefab.GetComponent<OrbitTransform>();
             yield return new WaitForSeconds(1);
@@ -34,19 +32,17 @@ namespace Systemagedon.Tests
         public IEnumerator OrbitDash()
         {
             GameObject testingPrefab =
-                PrefabUtility.LoadPrefabContents("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
-            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
-                EditorSceneManager.GetActiveScene());
+                TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
             OneAxisMovement movement = testingPrefab.GetComponent<OneAxisMovement>();
             Dash dash = testingPrefab.GetComponent<Dash>();
             float regularVelocity = movement.Velocity;
             dash.ApplyDash();
-            Assert.AreEqual(regularVelocity + dash.Strength, movement.Velocity);
+            Assert.AreEqual(regularVelocity + dash.Strength, movement.TotalVelocity);
             yield return new WaitForSeconds(dash.Duration / 2);
-            Assert.Greater(movement.Velocity, regularVelocity);
-            Assert.Less(movement.Velocity, regularVelocity + dash.Strength);
+            Assert.Greater(movement.TotalVelocity, regularVelocity);
+            Assert.Less(movement.TotalVelocity, regularVelocity + dash.Strength);
             yield return new WaitForSeconds(dash.Duration / 2 + 0.5f);
-            Assert.AreEqual(regularVelocity, movement.Velocity);
+            Assert.AreEqual(regularVelocity, movement.TotalVelocity);
         }
 
 
@@ -54,9 +50,7 @@ namespace Systemagedon.Tests
         public IEnumerator OrbitCenter()
         {
             GameObject testingPrefab =
-                PrefabUtility.LoadPrefabContents("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
-            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
-                EditorSceneManager.GetActiveScene());
+                TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
             GameObject root = new GameObject();
             OrbitTransform orbit = testingPrefab.GetComponent<OrbitTransform>();
             testingPrefab.transform.parent = root.transform;

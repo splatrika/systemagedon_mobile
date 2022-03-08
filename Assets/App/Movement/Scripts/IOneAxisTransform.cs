@@ -1,3 +1,6 @@
+using UnityEngine;
+
+
 namespace Systemagedon.App.Movement
 {
     public interface IOneAxisTransform
@@ -6,5 +9,6 @@ namespace Systemagedon.App.Movement
 
 
         public void SetPosition(float value);
+        public Vector3 CalculatePoint(float position);
     }
 }

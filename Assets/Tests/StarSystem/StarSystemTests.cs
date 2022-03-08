@@ -17,9 +17,7 @@ namespace Systemagedon.Tests
         public IEnumerator StarSystemGetDashes()
         {
             GameObject testingPrefab =
-                    PrefabUtility.LoadPrefabContents("Assets/Tests/StarSystem/Prefabs/StarSystemTests.prefab");
-            EditorSceneManager.MoveGameObjectToScene(testingPrefab,
-                EditorSceneManager.GetActiveScene());
+                TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/StarSystemTests.prefab");
             bool listUpdatedRaised = false;
             StarSystem starSystem = testingPrefab.GetComponent<StarSystem>();
             IDashesProvider dashesProvider = (IDashesProvider)starSystem;
