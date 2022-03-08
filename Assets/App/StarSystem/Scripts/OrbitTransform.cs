@@ -37,8 +37,8 @@ namespace Systemagedon.App.StarSystem
         public Vector3 CalculatePoint(float position)
         {
             Vector3 point = new Vector3();
-            point.x = Mathf.Sin(_anglePosition);
-            point.z = Mathf.Cos(_anglePosition);
+            point.x = Mathf.Sin(position);
+            point.z = Mathf.Cos(position);
             point *= _radius;
             return point;
         }

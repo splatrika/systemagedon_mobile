@@ -52,16 +52,16 @@ namespace Systemagedon.App.Movement
 
         public Vector3 CalculatePoint(float position)
         {
-            if (_position > _length)
+            if (position > _length)
             {
                 throw new ArgumentOutOfRangeException("Position out of curve length range");
             }
             CurveSegment segment = Array.Find(_segments, segment =>
             {
-                return segment.StartPosition <= _position
-                    && segment.EndPosition >= _position;
+                return segment.StartPosition <= position
+                    && segment.EndPosition >= position;
             });
-            float localT = (_position - segment.StartPosition) /
+            float localT = (position - segment.StartPosition) /
                 (segment.EndPosition - segment.StartPosition);
             if (float.IsNaN(localT))
             {

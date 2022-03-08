@@ -25,7 +25,7 @@ namespace Systemagedon.Tests
                 Assert.Fail("Ruinable must be not destroyed yet");
             }
             ruiner.transform.position = ruinable.transform.position;
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
             if (ruinable)
             {
                 Assert.Fail("Ruinable must be destroyed after collision with ruiner");
