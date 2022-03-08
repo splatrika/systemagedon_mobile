@@ -67,7 +67,6 @@ namespace Systemagedon.App.StarSystem
             Vector3 planetCrossPoint =
                 target.Movement.CalculatePoint(secondsToCross);
             Vector3 offsetForAsteroid = planetCrossPoint - asteroidCrossPoint;
-            offsetForAsteroid.y = 0;
             return offsetForAsteroid;
         }
     }
