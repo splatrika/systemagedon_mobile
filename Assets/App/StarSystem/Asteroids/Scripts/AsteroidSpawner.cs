@@ -15,45 +15,60 @@ namespace Systemagedon.App.StarSystem
         [SerializeField] private StarSystem _starSystem;
 
 
-        protected override void SetupOnInstance(Asteroid instance)
+        protected sealed override void SetupOnInstance(Asteroid instance)
         {
-            GameObject asteroidRoot = new GameObject();
+            GameObject asteroidOffset = new GameObject();
             Bezier randomCurve = new Bezier();
 
             randomCurve.PointA.y = _topBorder;
             randomCurve.PointB.y = _bottomBorder;
-
-            float leversAngle = Random.Range(0f, Mathf.PI * 2);
-            float leversLength = Random.Range(_leverLength.Min, _leverLength.Min);
-            randomCurve.LerpA.y = _topBorder;
-            randomCurve.LerpB.y = _bottomBorder;
-            randomCurve.LerpA.x = Mathf.Sin(leversAngle) * leversLength;
-            randomCurve.LerpA.z = Mathf.Cos(leversAngle) * leversLength;
-            randomCurve.LerpB.x = randomCurve.LerpA.x;
-            randomCurve.LerpB.z = randomCurve.LerpA.z;
-
+            MakeRandomLevers(ref randomCurve, _leverLength);
             instance.Transform.ChangeCurve(randomCurve);
             instance.Movement.SetVelocity(
                 Random.Range(_asteroidVelocity.Min, _asteroidVelocity.Max));
 
+            Planet targetPlanet = SelectRandomPlanet(_starSystem);
+            Vector3 offsetForAsteroid =
+                CalculateOffsetToPlanet(targetPlanet, instance);
+            instance.transform.SetParent(asteroidOffset.transform);
+            asteroidOffset.transform.position = offsetForAsteroid;
+        }
+
+
+        private void MakeRandomLevers(ref Bezier curve, RangeFloat length)
+        {
+            float leversAngle = Random.Range(0f, Mathf.PI * 2);
+            float leversLength = Random.Range(length.Min, length.Min);
+            curve.LerpA.y = _topBorder;
+            curve.LerpB.y = _bottomBorder;
+            curve.LerpA.x = Mathf.Sin(leversAngle) * leversLength;
+            curve.LerpA.z = Mathf.Cos(leversAngle) * leversLength;
+            curve.LerpB.x = curve.LerpA.x;
+            curve.LerpB.z = curve.LerpA.z;
+        }
+
+
+        private Planet SelectRandomPlanet(StarSystem from)
+        {
             int planetsCount = _starSystem.GetPlanets().Count();
             int randomIndex = Random.Range(0, planetsCount);
-            Planet targetPlanet =
-                _starSystem.GetPlanets().ElementAt(randomIndex);
+            return _starSystem.GetPlanets().ElementAt(randomIndex);
+        }
 
-            //A point where asteroid collides star system plane
-            float middleOfAsteroidPath = instance.Transform.Length / 2f;
+
+        private Vector3 CalculateOffsetToPlanet(Planet target, Asteroid asteroid)
+        {
+            float middleOfAsteroidPath = asteroid.Transform.Length / 2f;
             Vector3 asteroidCrossPoint =
-                instance.Transform.CalculatePoint(middleOfAsteroidPath);
+                asteroid.Transform.CalculatePoint(middleOfAsteroidPath);
             float secondsToCross =
-                instance.Movement.CalculateSeconds(0, middleOfAsteroidPath);
+                asteroid.Movement.CalculateSeconds(0, middleOfAsteroidPath);
 
             Vector3 planetCrossPoint =
-                targetPlanet.Movement.CalculatePoint(secondsToCross);
+                target.Movement.CalculatePoint(secondsToCross);
             Vector3 offsetForAsteroid = planetCrossPoint - asteroidCrossPoint;
             offsetForAsteroid.y = 0;
-            instance.transform.SetParent(asteroidRoot.transform);
-            asteroidRoot.transform.position = offsetForAsteroid;
+            return offsetForAsteroid;
         }
     }
 
