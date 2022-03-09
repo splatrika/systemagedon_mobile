@@ -19,31 +19,31 @@ namespace Systemagedon.Tests
             GameObject testingPrefab =
                 TestsUtility.MakePrefabReady("Assets/Tests/Movement/Prefabs/CurveMovementTests.prefab");
             yield return null;
-            CurveMovement movement = testingPrefab.GetComponent<CurveMovement>();
-            Vector3 previousPosition = movement.transform.position;
-            movement.SetPosition(movement.Length / 2);
-            Vector3 position = movement.transform.position;
+            CurveTransform curveTransform = testingPrefab.GetComponent<CurveTransform>();
+            Vector3 previousPosition = curveTransform.transform.position;
+            curveTransform.SetPosition(curveTransform.Length / 2);
+            Vector3 position = curveTransform.transform.position;
             Assert.IsTrue(previousPosition.x < position.x
                 && previousPosition.y < position.y);
-            movement.SetPosition(movement.Length);
-            Assert.AreEqual(movement.Curve.PointB, movement.transform.position);
+            curveTransform.SetPosition(curveTransform.Length);
+            Assert.AreEqual(curveTransform.Curve.PointB, curveTransform.transform.position);
         }
 
 
         [Test]
         public void SetupFromScript()
         {
-            CurveMovement movement = new GameObject().AddComponent<CurveMovement>();
+            CurveTransform curveTransform = new GameObject().AddComponent<CurveTransform>();
             Bezier curve = new Bezier()
             {
                 PointA = Vector3.zero,
                 PointB = Vector3.up * 2
             };
-            movement.ChangeCurve(curve);
-            Assert.AreEqual(curve, movement.Curve);
-            Assert.AreEqual(2, movement.Length);
-            movement.SetPosition(2);
-            Assert.AreEqual(Vector3.up * 2, movement.transform.position);
+            curveTransform.ChangeCurve(curve);
+            Assert.AreEqual(curve, curveTransform.Curve);
+            Assert.AreEqual(2, curveTransform.Length);
+            curveTransform.SetPosition(2);
+            Assert.AreEqual(Vector3.up * 2, curveTransform.transform.position);
         }
     }
 
