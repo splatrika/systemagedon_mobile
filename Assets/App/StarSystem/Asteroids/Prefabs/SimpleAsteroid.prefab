@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ruiner: {fileID: 3847521747257891913}
-  _transform: {fileID: 8061744613962467872}
+  _path: {fileID: 8061744613962467872}
   _movement: {fileID: 6543846122994028001}
 --- !u!114 &3847521747257891913
 MonoBehaviour:
