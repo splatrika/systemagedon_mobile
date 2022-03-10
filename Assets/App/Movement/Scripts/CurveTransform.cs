@@ -35,8 +35,6 @@ namespace Systemagedon.App.Movement
         private CurveSegment[] _segments;
         private const int c_SegemntsCount = 20;
         private Vector3 _previousCurveOffset;
-
-
         private float _length;
         private Transform _transform;
 

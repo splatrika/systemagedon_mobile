@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using Systemagedon.App.Collisions;
 using Systemagedon.App.Movement;
@@ -15,11 +14,17 @@ namespace Systemagedon.App.StarSystem
         public Ruiner Ruiner { get => _ruiner; }
         public CurveTransform Path { get => _path; }
         public OneAxisMovement Movement { get => _movement; }
+        public float CrossPosition { get => _crossPositon; }
+        public Vector3 CrossPoint { get => _crossPoint; }
 
 
         [SerializeField] private Ruiner _ruiner;
         [SerializeField] private CurveTransform _path;
         [SerializeField] private OneAxisMovement _movement;
+
+
+        private float _crossPositon;
+        private Vector3 _crossPoint;
 
 
         private void Start()
@@ -30,15 +35,16 @@ namespace Systemagedon.App.StarSystem
 
         private void OnEnable()
         {
-            Path.CurveChanged += CallModified;
-            Path.CurveOffsetChanged += CallModified;
+            Path.CurveChanged += OnPathModified;
+            Path.CurveOffsetChanged += OnPathModified;
+            ActualizeCrossData();
         }
 
 
         private void OnDisable()
         {
-            Path.CurveChanged -= CallModified;
-            Path.CurveOffsetChanged -= CallModified;
+            Path.CurveChanged -= OnPathModified;
+            Path.CurveOffsetChanged -= OnPathModified;
         }
 
 
@@ -54,8 +60,16 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private void CallModified()
+        private void ActualizeCrossData()
         {
+            _crossPositon = _path.Length / 2;
+            _crossPoint = _path.CalculatePoint(_crossPositon);
+        }
+
+
+        private void OnPathModified()
+        {
+            ActualizeCrossData();
             PathModified?.Invoke();
         }
     }

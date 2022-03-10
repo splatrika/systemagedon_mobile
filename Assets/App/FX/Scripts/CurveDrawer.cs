@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Systemagedon.App.Movement;
 using System.Linq;
+using System;
 
 namespace Systemagedon.App.FX
 {
@@ -12,30 +13,79 @@ namespace Systemagedon.App.FX
         [SerializeField] private LineRenderer _lineRenderer;
 
 
+        public void Init(CurveTransform target, LineRenderer renderer)
+        {
+            if (_lineRenderer != null || _target != null)
+            {
+                throw new InvalidOperationException("Instance already initialized");
+            }
+            if (!target)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+            if (!renderer)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+            _lineRenderer = renderer;
+            _target = target;
+            SubscribeEvents();
+        }
+
+
+        public void ChangeColor(Color color)
+        {
+            _lineRenderer.Fill(color);
+        }
+
+
         private void OnEnable()
         {
-            _target.CurveChanged += OnCurveChangded;
-            _target.CurveOffsetChanged += OnCurveOffsetChanged;
-            Redraw();
+            if (_target)
+            {
+                SubscribeEvents();
+                Redraw();
+            }
         }
 
 
         private void OnDisable()
         {
-            _target.CurveChanged -= OnCurveChangded;
-            _target.CurveOffsetChanged -= OnCurveOffsetChanged;
+            UnsubscribeEvents();
         }
 
 
-        private void OnCurveChangded()
+        private void Start()
         {
-            Redraw();
+            Validate();
         }
 
 
-        private void OnCurveOffsetChanged()
+        private void SubscribeEvents()
         {
-            Redraw();
+            _target.CurveChanged += Redraw;
+            _target.CurveOffsetChanged += Redraw;
+        }
+
+
+        private void UnsubscribeEvents()
+        {
+            _target.CurveChanged -= Redraw;
+            _target.CurveOffsetChanged -= Redraw;
+        }
+
+
+        private void Validate()
+        {
+            if (!_target)
+            {
+                Debug.LogError("_target must be assigned from inspector or on init");
+            }
+            if (!_lineRenderer)
+            {
+                Debug.LogError("_lineRenderer must be assigned from inspector " +
+                    "or on init");
+            }
         }
 
 
