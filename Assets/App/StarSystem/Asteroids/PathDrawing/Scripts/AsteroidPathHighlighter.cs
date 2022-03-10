@@ -18,7 +18,7 @@ namespace Systemagedon.App.StarSystem
 
         private CurveDrawer _drawer;
         private CrossMarker _crossMarker;
-        private Coroutine _highligthCoroutine;
+        private Coroutine _highlightCoroutine;
 
 
         private void Start()
@@ -34,7 +34,7 @@ namespace Systemagedon.App.StarSystem
 
             _target.PathModified += OnTargetPathModified;
 
-            _highligthCoroutine = StartCoroutine(HighlightCoroutine());
+            _highlightCoroutine = StartCoroutine(HighlightCoroutine());
         }
 
 
@@ -64,12 +64,11 @@ namespace Systemagedon.App.StarSystem
 
         private void OnTargetPathModified()
         {
-            print("Modified");
             _crossMarker.transform.position = _target.CrossPoint;
-            if (_highligthCoroutine != null)
+            if (_highlightCoroutine != null)
             {
-                StopCoroutine(_highligthCoroutine);
-                _highligthCoroutine = StartCoroutine(HighlightCoroutine());
+                StopCoroutine(_highlightCoroutine);
+                _highlightCoroutine = StartCoroutine(HighlightCoroutine());
             }
         }
 

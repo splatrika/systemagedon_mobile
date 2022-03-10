@@ -50,12 +50,11 @@ namespace Systemagedon.App.StarSystem
 
         private void Validate()
         {
-            bool movementIsNotValid = _movement.Target != _path;
+            bool movementIsNotValid = _movement.Target != this;
             if (movementIsNotValid)
             {
                 _movement = null;
-                Debug.LogError("Target of movement of this asteroid " +
-                    "must be transform that assigned to this asteroid");
+                Debug.LogError("Target of movement must be this asteroid");
             }
         }
 
