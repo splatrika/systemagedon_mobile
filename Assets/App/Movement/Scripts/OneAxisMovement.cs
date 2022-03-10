@@ -55,7 +55,6 @@ namespace Systemagedon.App.Movement
 
         public float CalculateSeconds(float fromPosition, float toPosition)
         {
-            //TODO Add checking acceptable range
             float distance = Mathf.Abs(toPosition - fromPosition);
             return distance / TotalVelocity;
         }

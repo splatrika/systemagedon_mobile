@@ -13,14 +13,14 @@ namespace Systemagedon.App.StarSystem
 
         public Ruiner Ruiner { get => _ruiner; }
         public CurveTransform Path { get => _path; }
-        public OneAxisMovement Movement { get => _movement; }
+        public AsteroidMovement Movement { get => _movement; }
         public float CrossPosition { get => _crossPositon; }
         public Vector3 CrossPoint { get => _crossPoint; }
 
 
         [SerializeField] private Ruiner _ruiner;
         [SerializeField] private CurveTransform _path;
-        [SerializeField] private OneAxisMovement _movement;
+        [SerializeField] private AsteroidMovement _movement;
 
 
         private float _crossPositon;

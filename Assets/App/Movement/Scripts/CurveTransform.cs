@@ -32,7 +32,7 @@ namespace Systemagedon.App.Movement
         [SerializeField] private float _position;
 
 
-        private CurveSegment[] _segments;
+        private CurveSegment[] _segments = new CurveSegment[0];
         private const int c_SegemntsCount = 20;
         private Vector3 _previousCurveOffset;
         private float _length;
