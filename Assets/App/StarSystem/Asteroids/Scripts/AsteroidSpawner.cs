@@ -23,7 +23,7 @@ namespace Systemagedon.App.StarSystem
             randomCurve.PointA.y = _topBorder;
             randomCurve.PointB.y = _bottomBorder;
             MakeRandomLevers(ref randomCurve, _leverLength);
-            instance.Transform.ChangeCurve(randomCurve);
+            instance.Path.ChangeCurve(randomCurve);
             instance.Movement.SetVelocity(
                 Random.Range(_asteroidVelocity.Min, _asteroidVelocity.Max));
 
@@ -58,9 +58,9 @@ namespace Systemagedon.App.StarSystem
 
         private Vector3 CalculateOffsetToPlanet(Planet target, Asteroid asteroid)
         {
-            float middleOfAsteroidPath = asteroid.Transform.Length / 2f;
+            float middleOfAsteroidPath = asteroid.Path.Length / 2f;
             Vector3 asteroidCrossPoint =
-                asteroid.Transform.CalculatePoint(middleOfAsteroidPath);
+                asteroid.Path.CalculatePoint(middleOfAsteroidPath);
             float secondsToCross =
                 asteroid.Movement.CalculateSeconds(0, middleOfAsteroidPath);
 

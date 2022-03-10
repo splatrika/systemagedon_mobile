@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 namespace Systemagedon.App.Movement
 {
 
     [ExecuteInEditMode]
-    public class CurveMovement : MonoBehaviour, IOneAxisTransform
+    public class CurveTransform : MonoBehaviour, IOneAxisTransform
     {
         [Serializable]
-        private struct CurveSegment
+        public struct CurveSegment
         {
             public Vector3 StartPoint { get; set; }
             public Vector3 EndPoint { get; set; }
@@ -18,19 +18,23 @@ namespace Systemagedon.App.Movement
         }
 
 
+        public event Action CurveChanged;
+        public event Action CurveOffsetChanged;
+
+
         public Bezier Curve { get => _curve; }
         public float Position { get => _position; }
         public float Length { get => _length; }
+        public IEnumerable<CurveSegment> BakedSegments { get => _segments; }
 
 
         [SerializeField] private Bezier _curve;
         [SerializeField] private float _position;
 
 
-        private CurveSegment[] _segments;
+        private CurveSegment[] _segments = new CurveSegment[0];
         private const int c_SegemntsCount = 20;
-
-
+        private Vector3 _previousCurveOffset;
         private float _length;
         private Transform _transform;
 
@@ -67,7 +71,17 @@ namespace Systemagedon.App.Movement
             {
                 localT = 0;
             }
-            return Vector3.Lerp(segment.StartPoint, segment.EndPoint, localT);
+            Vector3 localPoint =
+                Vector3.Lerp(segment.StartPoint, segment.EndPoint, localT);
+            return localPoint + GetCurveOffset();
+        }
+
+
+        public Vector3 GetCurveOffset()
+        {
+            return (transform.parent)
+                ? transform.parent.position
+                : Vector3.zero;
         }
 
 
@@ -79,6 +93,16 @@ namespace Systemagedon.App.Movement
         }
 
 
+        private void Update()
+        {
+            if (_previousCurveOffset != GetCurveOffset())
+            {
+                CurveOffsetChanged?.Invoke();
+                _previousCurveOffset = GetCurveOffset();
+            }
+        }
+
+
         private void OnValidate()
         {
             BakeCurve();
@@ -87,7 +111,7 @@ namespace Systemagedon.App.Movement
 
         private void ApplyTransform()
         {
-            _transform.localPosition = CalculatePoint(_position);
+            _transform.position = CalculatePoint(_position);
         }
 
 
@@ -108,21 +132,20 @@ namespace Systemagedon.App.Movement
                 _segments[i] = segment;
             }
             _length = totalLength;
+            CurveChanged?.Invoke();
         }
 
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Vector3 parentPosition = (transform.parent)
-                ? transform.parent.position
-                : Vector3.zero;
+            Vector3 curveOffset = GetCurveOffset();
             foreach (CurveSegment segment in _segments)
             {
                 Vector3 firstPoint = segment.StartPoint;
                 Vector3 secondPoint = segment.EndPoint;
-                Gizmos.DrawLine(firstPoint + parentPosition,
-                    secondPoint + parentPosition);
+                Gizmos.DrawLine(firstPoint + curveOffset,
+                    secondPoint + curveOffset);
             }
         }
     }

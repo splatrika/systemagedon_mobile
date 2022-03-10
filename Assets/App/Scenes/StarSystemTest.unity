@@ -615,11 +615,11 @@ MonoBehaviour:
   _topBorder: 20
   _bottomBorder: -20
   _leverLength:
-    Min: 10
-    Max: 30
+    Min: 20
+    Max: 50
   _asteroidVelocity:
     Min: 5
-    Max: 10
+    Max: 15
   _starSystem: {fileID: 623245816}
 --- !u!4 &690324835
 Transform:
@@ -1102,7 +1102,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 27.672, y: -12.545, z: -54.835}
+  m_LocalEulerAnglesHint: {x: 0.2852936, y: -0.000002973919, z: -0.00000383474}
 --- !u!1 &1397606907
 GameObject:
   m_ObjectHideFlags: 0
