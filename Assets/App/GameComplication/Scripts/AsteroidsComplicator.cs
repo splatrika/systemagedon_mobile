@@ -26,8 +26,24 @@ namespace Systemagedon.App.GameComplicaton
         {
             _spawner.RaiseAsteroidVelocity(_riseSteps.Velocity);
             _spawner.RaiseSpawnPerSeconds(_riseSteps.SpawnPerSecond);
-
         }
+
+
+        protected sealed override void Validate()
+        {
+            ValidateNonZero(ref _riseSteps.SpawnPerSecond);
+            ValidateNonZero(ref _riseSteps.Velocity.Min);
+            ValidateNonZero(ref _riseSteps.Velocity.Max);
+        }
+
+
+        private void ValidateNonZero(ref float value)
+        {
+            if (value <= 0)
+            {
+                value = 1;
+            }
+        }    
     }
 
 }

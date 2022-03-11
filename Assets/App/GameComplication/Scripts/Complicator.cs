@@ -16,6 +16,9 @@ namespace Systemagedon.App.GameComplicaton
         }
 
 
+        protected virtual void Validate() { }
+
+
         private void OnValidate()
         {
             if (!_complicationObject)
@@ -29,6 +32,7 @@ namespace Systemagedon.App.GameComplicaton
                 Debug.LogError("Complication object must have component " +
                     "that implements IComplication");
             }
+            Validate();
         }
 
 
