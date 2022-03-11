@@ -15,7 +15,7 @@ namespace Systemagedon.Tests
         public IEnumerator AsteroidsComplication()
         {
             GameObject testPrefab = TestsUtility.MakePrefabReady
-                ("Assets/Tests/Complication/Prefabs/AsteroidsComplicationTests.prefab");
+                ("Assets/Tests/GameComplication/Prefabs/AsteroidsComplicationTests.prefab");
             AsteroidSpawner asteroidSpawner =
                 testPrefab.GetComponent<AsteroidSpawner>();
             AsteroidsComplicator asteroidsComplicator =
