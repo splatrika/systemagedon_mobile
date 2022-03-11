@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2239064373976449906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458417558508721346}
+  - component: {fileID: 570613094987959817}
+  - component: {fileID: 8571601487949967070}
+  - component: {fileID: 2529071350518893471}
+  - component: {fileID: 2087574679596639179}
+  m_Layer: 0
+  m_Name: AsteroidsComplicationTests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1458417558508721346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239064373976449906}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6699714457662294005}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &570613094987959817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239064373976449906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7525e364da044588c29c6e519128a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _planets:
+  - {fileID: 6734027675174898637}
+--- !u!114 &8571601487949967070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239064373976449906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d23401f73094b478ae46ff23636be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5455333345076590386, guid: 9ba4c679ed7fb46ed8746d7360e7fc27, type: 3}
+  _frequency: 1
+  _topBorder: 1
+  _bottomBorder: -1
+  _leverLength:
+    Min: 0
+    Max: 0
+  _asteroidVelocity:
+    Min: 1
+    Max: 1
+  _starSystem: {fileID: 570613094987959817}
+--- !u!114 &2529071350518893471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239064373976449906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5161b819b0c4a3f839ab4fff36c7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frequency: 2
+--- !u!114 &2087574679596639179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239064373976449906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c7e8589dcaf4c79a71bda22f69a800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _complicationObject: {fileID: 2239064373976449906}
+  _spawner: {fileID: 8571601487949967070}
+  _riseSteps:
+    SpawnPerSecond: 1
+    Velocity:
+      Min: 1
+      Max: 1
+--- !u!1001 &4558969836840327433
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1458417558508721346}
+    m_Modifications:
+    - target: {fileID: 5409682806559832098, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: _radius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902340598804639078, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_Name
+      value: PlanetBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+--- !u!4 &6699714457662294005 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7187353737975045884, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+  m_PrefabInstance: {fileID: 4558969836840327433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6734027675174898637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7075335972256584388, guid: 2d2cd89a3ce5a48c29e5d04a06ed6507, type: 3}
+  m_PrefabInstance: {fileID: 4558969836840327433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801cb1a12ba4b46008bf6299ec20c8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,6 +8,9 @@ namespace Systemagedon.App.StarSystem
 
     public class AsteroidSpawner : FrequencySpawner<Asteroid>
     {
+        public RangeFloat AsteroidVelocity { get => _asteroidVelocity; }
+
+
         [SerializeField] private float _topBorder;
         [SerializeField] private float _bottomBorder;
         [SerializeField] private RangeFloat _leverLength;
@@ -15,14 +18,20 @@ namespace Systemagedon.App.StarSystem
         [SerializeField] private StarSystem _starSystem;
 
 
+        public void RaiseAsteroidVelocity(RangeFloat value)
+        {
+            _asteroidVelocity += value;
+        }
+
+
+
         protected sealed override void SetupOnInstance(Asteroid instance)
         {
-            GameObject asteroidOffset = new GameObject();
             Bezier randomCurve = new Bezier();
-
             randomCurve.PointA.y = _topBorder;
             randomCurve.PointB.y = _bottomBorder;
             MakeRandomLevers(ref randomCurve, _leverLength);
+
             instance.Path.ChangeCurve(randomCurve);
             instance.Movement.SetVelocity(
                 Random.Range(_asteroidVelocity.Min, _asteroidVelocity.Max));
@@ -30,8 +39,22 @@ namespace Systemagedon.App.StarSystem
             Planet targetPlanet = SelectRandomPlanet(_starSystem);
             Vector3 offsetForAsteroid =
                 CalculateOffsetToPlanet(targetPlanet, instance);
-            instance.transform.SetParent(asteroidOffset.transform);
-            asteroidOffset.transform.position = offsetForAsteroid;
+            Bezier movedToPlanet = instance.Path.Curve;
+            movedToPlanet.MoveBy(offsetForAsteroid);
+            instance.Path.ChangeCurve(movedToPlanet);
+        }
+
+
+        protected sealed override void Validate()
+        {
+            if (_asteroidVelocity.Max <= 0)
+            {
+                _asteroidVelocity.Max = 1;
+            }
+            if (_asteroidVelocity.Min <= 0)
+            {
+                _asteroidVelocity.Min = 1;
+            }
         }
 
 

@@ -30,6 +30,7 @@ namespace Systemagedon.App.FX
             _lineRenderer = renderer;
             _target = target;
             SubscribeEvents();
+            Redraw();
         }
 
 

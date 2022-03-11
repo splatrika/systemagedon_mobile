@@ -160,6 +160,15 @@ namespace Systemagedon.App.Movement
         public Vector3 LerpB;
 
 
+        public void MoveBy(Vector3 value)
+        {
+            PointA += value;
+            PointB += value;
+            LerpA += value;
+            LerpB += value;
+        }
+
+
         public Vector3 CalculatePoint(float t)
         {
             Vector3 subPointA = Vector3.Lerp(PointA, LerpA, t);

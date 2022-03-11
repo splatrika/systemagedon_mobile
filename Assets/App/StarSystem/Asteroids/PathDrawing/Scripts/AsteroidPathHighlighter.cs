@@ -41,7 +41,7 @@ namespace Systemagedon.App.StarSystem
         private void OnDestroy()
         {
             _target.PathModified -= OnTargetPathModified;
-            Destroy(_crossMarker);
+            Destroy(_crossMarker.gameObject);
         }
 
 

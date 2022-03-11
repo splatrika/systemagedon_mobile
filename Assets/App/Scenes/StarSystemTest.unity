@@ -618,7 +618,7 @@ MonoBehaviour:
     Min: 20
     Max: 50
   _asteroidVelocity:
-    Min: 5
+    Min: 10
     Max: 15
   _starSystem: {fileID: 623245816}
 --- !u!4 &690324835
@@ -1112,8 +1112,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1397606908}
+  - component: {fileID: 1397606910}
+  - component: {fileID: 1397606909}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameComplication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,6 +1135,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1397606909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397606907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c7e8589dcaf4c79a71bda22f69a800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _complicationObject: {fileID: 1397606907}
+  _spawner: {fileID: 690324834}
+  _riseSteps:
+    SpawnPerSecond: 0.1
+    Velocity:
+      Min: 0.2
+      Max: 0.2
+--- !u!114 &1397606910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397606907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5161b819b0c4a3f839ab4fff36c7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frequency: 4
 --- !u!1001 &1432259306
 PrefabInstance:
   m_ObjectHideFlags: 0
