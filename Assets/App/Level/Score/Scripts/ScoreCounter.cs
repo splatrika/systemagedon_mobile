@@ -62,7 +62,6 @@ namespace Systemagedon.App.Score
 
         private void RemoveAsteroidRegistration(AsteroidRegistration registration)
         {
-            print("Remove");
             registration.Asteroid.Destroyed -= registration.DestroyListener;
             _registered.Remove(registration);
         }
