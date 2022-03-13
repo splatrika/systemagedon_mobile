@@ -9,6 +9,7 @@ namespace Systemagedon.App.StarSystem
     public class Asteroid : MonoBehaviour
     {
         public event Action PathModified;
+        public event Action Destroyed;
 
 
         public Ruiner Ruiner { get => _ruiner; }
@@ -25,6 +26,7 @@ namespace Systemagedon.App.StarSystem
 
         private float _crossPositon;
         private Vector3 _crossPoint;
+        private bool _crossed = false;
 
 
         private void Start()
@@ -45,6 +47,12 @@ namespace Systemagedon.App.StarSystem
         {
             Path.CurveChanged -= OnPathModified;
             Path.CurveOffsetChanged -= OnPathModified;
+        }
+
+
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke();
         }
 
 

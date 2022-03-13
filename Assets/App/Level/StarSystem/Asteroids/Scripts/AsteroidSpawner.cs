@@ -2,6 +2,8 @@
 using System.Collections;
 using Systemagedon.App.Movement;
 using System.Linq;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Systemagedon.App.StarSystem
 {

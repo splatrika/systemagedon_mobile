@@ -4,7 +4,7 @@ using System;
 
 public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
 {
-    public event Action<T> OnSpawned;
+    public event Action<T> Spawned;
 
     
     public float SpawnPerSecond { get => 1 / _frequency; }
@@ -62,6 +62,7 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
         {
             T instance = Instantiate(_prefab);
             SetupOnInstance(instance);
+            Spawned?.Invoke(instance);
             yield return new WaitForSeconds(_frequency);
         }
     }
