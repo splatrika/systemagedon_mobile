@@ -34,7 +34,7 @@ namespace Systemagedon.Tests
             GameObject testingPrefab =
                 TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/OrbitTests.prefab");
             OneAxisMovement movement = testingPrefab.GetComponent<OneAxisMovement>();
-            Dash dash = testingPrefab.GetComponent<Dash>();
+            LegacyDash dash = testingPrefab.GetComponent<LegacyDash>();
             float regularVelocity = movement.Velocity;
             dash.ApplyDash();
             Assert.AreEqual(regularVelocity + dash.Strength, movement.TotalVelocity);

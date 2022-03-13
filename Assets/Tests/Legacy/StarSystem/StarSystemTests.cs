@@ -20,14 +20,14 @@ namespace Systemagedon.Tests
                 TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/StarSystemTests.prefab");
             bool listUpdatedRaised = false;
             StarSystem starSystem = testingPrefab.GetComponent<StarSystem>();
-            IDashesProvider dashesProvider = (IDashesProvider)starSystem;
+            IDashesProviderLegacy dashesProvider = (IDashesProviderLegacy)starSystem;
             dashesProvider.DashesListUpdated += () =>
             {
                 listUpdatedRaised = true;
             };
             yield return null;
             Assert.IsTrue(listUpdatedRaised, "List updated must be invoked after Start");
-            List<Dash> dashes = new List<Dash>(starSystem.GetDashes());
+            List<LegacyDash> dashes = new List<LegacyDash>(starSystem.GetDashes());
             int i = 0;
             foreach (Planet planet in starSystem.GetPlanets())
             {

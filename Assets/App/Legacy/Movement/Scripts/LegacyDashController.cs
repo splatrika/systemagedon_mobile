@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace Systemagedon.App.Movement
 {
-    public class DashController : MonoBehaviour
+    public class LegacyDashController : MonoBehaviour
     {
         [SerializeField] private WorldTouchController _controller;
         [SerializeField] private GameObject _providerObject;
 
 
-        private IDashesProvider _provider;
-        private IEnumerable<Dash> _controlledDashes;
+        private IDashesProviderLegacy _provider;
+        private IEnumerable<LegacyDash> _controlledDashes;
 
 
         private void Start()
@@ -22,7 +22,7 @@ namespace Systemagedon.App.Movement
 
         private void OnValidate()
         {
-            _provider = _providerObject.GetComponent<IDashesProvider>();
+            _provider = _providerObject.GetComponent<IDashesProviderLegacy>();
             if (_provider == null)
             {
                 Debug.LogError("Provider must have component that implements IDashesProvider");
@@ -58,7 +58,7 @@ namespace Systemagedon.App.Movement
             {
                 return;
             }
-            Dash touchedDash = touched.GetComponentInChildren<Dash>();
+            LegacyDash touchedDash = touched.GetComponentInChildren<LegacyDash>();
             bool dashCanControlled = touchedDash
                 && _controlledDashes.FirstOrDefault(dash => dash == touchedDash);
             if (dashCanControlled)

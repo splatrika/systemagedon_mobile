@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Systemagedon.App.StarSystem
 {
-    public class StarSystem : MonoBehaviour, IDashesProvider
+    public class StarSystem : MonoBehaviour, IDashesProviderLegacy
     {
         public event Action DashesListUpdated;
 
@@ -14,7 +14,7 @@ namespace Systemagedon.App.StarSystem
         [SerializeField] private Planet[] _planets;
 
 
-        private Dash[] _planetDashes;
+        private LegacyDash[] _planetDashes;
 
 
         public IEnumerable<Planet> GetPlanets()
@@ -23,7 +23,7 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        public IEnumerable<Dash> GetDashes()
+        public IEnumerable<LegacyDash> GetDashes()
         {
             return _planetDashes;
         }
@@ -36,9 +36,9 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private Dash[] FindPlanetDashes()
+        private LegacyDash[] FindPlanetDashes()
         {
-            Dash[] finded = new Dash[_planets.Length];
+            LegacyDash[] finded = new LegacyDash[_planets.Length];
             int i = 0;
             foreach (Planet planet in _planets)
             {

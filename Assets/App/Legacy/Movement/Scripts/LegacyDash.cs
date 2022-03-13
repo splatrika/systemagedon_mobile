@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Systemagedon.App.Movement
 {
-    public class Dash : MonoBehaviour
+    public class LegacyDash : MonoBehaviour
     {
         public OneAxisMovement Target { get => _target; }
         public float Strength { get => _strength; }

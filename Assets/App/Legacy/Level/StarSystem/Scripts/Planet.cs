@@ -9,12 +9,12 @@ namespace Systemagedon.App.StarSystem
     {
         public OneAxisMovement Movement { get => _movement; }
         public OrbitTransform Orbit { get => _orbit; }
-        public Dash Dash { get => _dash; } 
+        public LegacyDash Dash { get => _dash; } 
 
 
         [SerializeField] private OneAxisMovement _movement;
         [SerializeField] private OrbitTransform _orbit;
-        [SerializeField] private Dash _dash;
+        [SerializeField] private LegacyDash _dash;
 
 
         private void Start()

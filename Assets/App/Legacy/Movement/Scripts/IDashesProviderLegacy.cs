@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Systemagedon.App.Movement
 {
-    public interface IDashesProvider
+    public interface IDashesProviderLegacy
     {
         public event Action DashesListUpdated;
 
 
-        public IEnumerable<Dash> GetDashes();
+        public IEnumerable<LegacyDash> GetDashes();
     }
 }
