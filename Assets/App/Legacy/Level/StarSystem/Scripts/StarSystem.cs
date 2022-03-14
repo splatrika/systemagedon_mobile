@@ -11,13 +11,13 @@ namespace Systemagedon.App.StarSystem
         public event Action DashesListUpdated;
 
 
-        [SerializeField] private Planet[] _planets;
+        [SerializeField] private LegacyPlanet[] _planets;
 
 
         private LegacyDash[] _planetDashes;
 
 
-        public IEnumerable<Planet> GetPlanets()
+        public IEnumerable<LegacyPlanet> GetPlanets()
         {
             return _planets;
         }
@@ -40,7 +40,7 @@ namespace Systemagedon.App.StarSystem
         {
             LegacyDash[] finded = new LegacyDash[_planets.Length];
             int i = 0;
-            foreach (Planet planet in _planets)
+            foreach (LegacyPlanet planet in _planets)
             {
                 finded[i] = planet.Dash;
                 i++;

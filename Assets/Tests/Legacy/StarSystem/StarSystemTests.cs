@@ -29,7 +29,7 @@ namespace Systemagedon.Tests
             Assert.IsTrue(listUpdatedRaised, "List updated must be invoked after Start");
             List<LegacyDash> dashes = new List<LegacyDash>(starSystem.GetDashes());
             int i = 0;
-            foreach (Planet planet in starSystem.GetPlanets())
+            foreach (LegacyPlanet planet in starSystem.GetPlanets())
             {
                 Assert.AreEqual(planet.Dash, dashes[i], "Returned dashes from star system must be dashes of its planets");
                 i++;

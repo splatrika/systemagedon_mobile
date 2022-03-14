@@ -17,6 +17,19 @@ namespace Systemagedon.App.Movement
 
 
         private IOneAxisTransform _target;
+        private bool _inited = false;
+
+
+        public void Init(IOneAxisTransform target, float velocity)
+        {
+            if (_inited)
+            {
+                throw new InvalidOperationException("Already inited");
+            }
+            _target = target;
+            _velocity = velocity;
+            _inited = true;
+        }
 
 
         public void ApplyVelocity(float velocity)
@@ -74,9 +87,15 @@ namespace Systemagedon.App.Movement
         }
 
 
+        private void Awake()
+        {
+            OnValidate();
+        }
+
+
         private void Start()
         {
-            TrySetupTargetFrom(_targetObject, out _target);
+            _inited = true;
         }
 
 

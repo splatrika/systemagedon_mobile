@@ -38,7 +38,7 @@ namespace Systemagedon.App.StarSystem
             instance.Movement.SetVelocity(
                 Random.Range(_asteroidVelocity.Min, _asteroidVelocity.Max));
 
-            Planet targetPlanet = SelectRandomPlanet(_starSystem);
+            LegacyPlanet targetPlanet = SelectRandomPlanet(_starSystem);
             Vector3 offsetForAsteroid =
                 CalculateOffsetToPlanet(targetPlanet, instance);
             Bezier movedToPlanet = instance.Path.Curve;
@@ -73,7 +73,7 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private Planet SelectRandomPlanet(StarSystem from)
+        private LegacyPlanet SelectRandomPlanet(StarSystem from)
         {
             int planetsCount = _starSystem.GetPlanets().Count();
             int randomIndex = Random.Range(0, planetsCount);
@@ -81,7 +81,7 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private Vector3 CalculateOffsetToPlanet(Planet target, Asteroid asteroid)
+        private Vector3 CalculateOffsetToPlanet(LegacyPlanet target, Asteroid asteroid)
         {
             float middleOfAsteroidPath = asteroid.Path.Length / 2f;
             Vector3 asteroidCrossPoint =

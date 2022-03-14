@@ -1,4 +1,4 @@
-﻿namespace Systemagedon.App.Gameplay.Dash
+﻿namespace Systemagedon.App.Gameplay
 {
 
     public interface IDash

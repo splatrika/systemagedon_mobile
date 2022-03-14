@@ -3,7 +3,7 @@ using System.Collections;
 using Systemagedon.App.Movement;
 using System;
 
-namespace Systemagedon.App.Gameplay.Dash
+namespace Systemagedon.App.Gameplay
 {
 
     public class Dash : MonoBehaviour, IDash

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Systemagedon.App.Gameplay.Dash;
+using Systemagedon.App.Gameplay;
 using Systemagedon.App.Movement;
 
 namespace Systemagedon.Tests
@@ -12,7 +12,7 @@ namespace Systemagedon.Tests
     public class DashTests
     {
         [UnityTest]
-        public IEnumerator Dash()
+        public IEnumerator DashFromInit()
         {
             GameObject orbitMovementPrefab =
                 TestsUtility.MakePrefabReady("Assets/Tests/Gameplay/Dash/Prefabs/OrbitMovement.prefab");

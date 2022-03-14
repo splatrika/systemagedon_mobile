@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Systemagedon.App.Gameplay.Dash
+namespace Systemagedon.App.Gameplay
 {
 
     public class DashesController : MonoBehaviour

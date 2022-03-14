@@ -5,7 +5,7 @@ using Systemagedon.App.Movement;
 namespace Systemagedon.App.StarSystem
 {
 
-    public class Planet : MonoBehaviour
+    public class LegacyPlanet : MonoBehaviour
     {
         public OneAxisMovement Movement { get => _movement; }
         public OrbitTransform Orbit { get => _orbit; }
