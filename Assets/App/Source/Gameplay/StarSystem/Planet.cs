@@ -6,7 +6,7 @@ using Systemagedon.App.Movement;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class Planet : MonoBehaviour, IDash, IRoundPath
+    public class Planet : MonoBehaviour, IDash, IRoundPath, IMovable
     {
         public event Action Ruined;
 
@@ -15,9 +15,10 @@ namespace Systemagedon.App.Gameplay
         public Vector3 Center { get => _orbit.Center; }
 
 
-        [SerializeField] private float _radius;
-        [SerializeField] private float _velocity;
-        [SerializeField] private Dash.PropertiesFields _dashProperties;
+        [SerializeField] private float _radius = 1;
+        [SerializeField] private float _velocity = 1;
+        [SerializeField] private Dash.PropertiesFields _dashProperties =
+            Dash.PropertiesFields.Default;
 
 
         private OrbitTransform _orbit;
@@ -54,6 +55,12 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        public Vector3 CalculatePoint(float afterSeconds)
+        {
+            return _movement.CalculatePoint(afterSeconds);
+        }
+
+
         private void Awake()
         {
             _orbit = gameObject.AddComponent<OrbitTransform>();
@@ -69,8 +76,6 @@ namespace Systemagedon.App.Gameplay
                 Init(_radius, _velocity);
             }
         }
-
-
     }
 
 }

@@ -17,11 +17,20 @@ namespace Systemagedon.App.Gameplay
         {
             public float Strength;
             public float Duration;
+
+            public static PropertiesFields Default
+            { get => new PropertiesFields()
+                {
+                    Strength = 1,
+                    Duration = 1
+                };
+            }
         }
 
 
         [SerializeField] private OneAxisMovement _target;
-        [SerializeField] private PropertiesFields _properties;
+        [SerializeField] private PropertiesFields _properties =
+            PropertiesFields.Default;
 
 
         private Coroutine _previousDash;
