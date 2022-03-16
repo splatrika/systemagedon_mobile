@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
-using Systemagedon.App;
-
+using System;
 
 namespace Systemagedon.App.FX
 {
 
+    /// <summary>
+    /// Init from script requaired
+    /// </summary>
     public class CircleDrawer : MonoBehaviour
     {
-        public IRounded Target { get => _target; }
-
-
-        [SerializeField] private GameObject _targetObject;
         [SerializeField] private LineRenderer _lineRenderer;
-        [SerializeField] private uint _pointsCount;
+        [SerializeField] private uint _segments;
+        private IRoundPath _target;
+        private bool _inited = false;
 
 
-        private IRounded _target;
-
-
-        private void Start()
+        public void Init(IRoundPath target)
         {
-            OnValidate();
-            ReDraw();
+            if (_inited)
+            {
+                throw new InvalidOperationException("Already inited");
+            }
+            _target = target;
+            _inited = true;
         }
 
 
-        private void OnValidate()
+        private void Awake()
         {
-            if (_targetObject && !TrySetupTarget(_targetObject, out _target))
+            if (!_lineRenderer)
             {
-                _targetObject = null;
-                Debug.LogError("Target Object must have a component that implements IRounded");
+                Debug.LogError("LineRenderer must be assigned");
             }
         }
 
 
-        private bool TrySetupTarget(in GameObject from, out IRounded to)
+        private void Start()
         {
-            to = from.GetComponent<IRounded>();
-            return to != null;
+            if (!_inited)
+            {
+                Debug.LogError("Instance must be inited from script");
+            }
+            Draw();
         }
 
 
-        private void ReDraw()
+        private void Draw()
         {
-            Vector3[] points = CalculatePoints(_pointsCount, _target.Radius);
-            MovePoints(ref points, _target.Center); 
+            Vector3[] points = CalculatePoints(_segments, _target.Radius);
+            MovePoints(ref points, _target.Center);
             _lineRenderer.positionCount = points.Length;
             _lineRenderer.SetPositions(points);
         }

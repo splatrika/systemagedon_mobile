@@ -35,7 +35,7 @@ public class WorldTouchController : MonoBehaviour
                 && raycastHit.rigidbody;
             if (touchedOnObject)
             {
-                Touched.Invoke(raycastHit.rigidbody.gameObject);
+                Touched?.Invoke(raycastHit.rigidbody.gameObject);
             }
         }
     }

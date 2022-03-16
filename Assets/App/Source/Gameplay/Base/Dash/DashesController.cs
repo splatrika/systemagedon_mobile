@@ -30,8 +30,18 @@ namespace Systemagedon.App.Gameplay
 
         private void Start()
         {
-            OnValidate();
-            _inited = true;
+            if (!_inited)
+            {
+                OnValidate();
+                _inited = true;
+            }
+            _controller.Touched += OnTouched;
+        }
+
+
+        private void OnDestroy()
+        {
+            _controller.Touched -= OnTouched;
         }
 
 
@@ -46,6 +56,7 @@ namespace Systemagedon.App.Gameplay
                 _providerObject = null;
             }
         }
+
 
         private void OnTouched(GameObject touched)
         {

@@ -17,7 +17,7 @@ namespace Systemagedon.App.StarSystem
         [SerializeField] private float _bottomBorder;
         [SerializeField] private RangeFloat _leverLength;
         [SerializeField] private RangeFloat _asteroidVelocity;
-        [SerializeField] private StarSystem _starSystem;
+        [SerializeField] private LegacyStarSystem _starSystem;
 
 
         public void RaiseAsteroidVelocity(RangeFloat value)
@@ -73,7 +73,7 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private LegacyPlanet SelectRandomPlanet(StarSystem from)
+        private LegacyPlanet SelectRandomPlanet(LegacyStarSystem from)
         {
             int planetsCount = _starSystem.GetPlanets().Count();
             int randomIndex = Random.Range(0, planetsCount);

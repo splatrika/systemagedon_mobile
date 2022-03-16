@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Systemagedon.App.StarSystem
 {
-    public class StarSystem : MonoBehaviour, IDashesProviderLegacy
+    public class LegacyStarSystem : MonoBehaviour, IDashesProviderLegacy
     {
         public event Action DashesListUpdated;
 

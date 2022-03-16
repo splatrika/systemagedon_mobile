@@ -19,7 +19,7 @@ namespace Systemagedon.Tests
             GameObject testingPrefab =
                 TestsUtility.MakePrefabReady("Assets/Tests/StarSystem/Prefabs/StarSystemTests.prefab");
             bool listUpdatedRaised = false;
-            StarSystem starSystem = testingPrefab.GetComponent<StarSystem>();
+            LegacyStarSystem starSystem = testingPrefab.GetComponent<LegacyStarSystem>();
             IDashesProviderLegacy dashesProvider = (IDashesProviderLegacy)starSystem;
             dashesProvider.DashesListUpdated += () =>
             {
