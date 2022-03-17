@@ -16,8 +16,8 @@ namespace Systemagedon.Tests
         {
             GameObject testPrefab = TestsUtility.MakePrefabReady
                 ("Assets/Tests/GameComplication/Prefabs/AsteroidsComplicationTests.prefab");
-            AsteroidSpawner asteroidSpawner =
-                testPrefab.GetComponent<AsteroidSpawner>();
+            LegacyAsteroidSpawner asteroidSpawner =
+                testPrefab.GetComponent<LegacyAsteroidSpawner>();
             AsteroidsComplicator asteroidsComplicator =
                 testPrefab.GetComponent<AsteroidsComplicator>();
             FrequencyComplication frequencyComplication =

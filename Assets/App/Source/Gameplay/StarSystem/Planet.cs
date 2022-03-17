@@ -8,7 +8,7 @@ namespace Systemagedon.App.Gameplay
 
     public class Planet : MonoBehaviour, IDash, IRoundPath, IMovable
     {
-        public event Action Ruined;
+        public event Action<Planet> Ruined;
 
 
         public float Radius { get => _radius; }
@@ -44,19 +44,22 @@ namespace Systemagedon.App.Gameplay
 
         public void Ruin()
         {
+            Start();
             Destroy(gameObject);
-            Ruined?.Invoke();
+            Ruined?.Invoke(this);
         }
 
 
         public void ApplyDash()
         {
+            Start();
             _dash.ApplyDash();
         }
 
 
         public Vector3 CalculatePoint(float afterSeconds)
         {
+            Start();
             return _movement.CalculatePoint(afterSeconds);
         }
 

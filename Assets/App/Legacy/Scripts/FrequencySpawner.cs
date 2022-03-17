@@ -33,13 +33,13 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
     }
 
 
-    private void OnEnable()
+    private void Start()
     {
         _spawningCoroutuine = StartCoroutine(SpawningCoroutine());
     }
 
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         StopCoroutine(_spawningCoroutuine);
     }

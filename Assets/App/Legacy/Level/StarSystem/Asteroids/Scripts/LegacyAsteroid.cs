@@ -6,7 +6,7 @@ using Systemagedon.App.Movement;
 namespace Systemagedon.App.StarSystem
 {
 
-    public class Asteroid : MonoBehaviour
+    public class LegacyAsteroid : MonoBehaviour
     {
         public event Action PathModified;
         public event Action Destroyed;

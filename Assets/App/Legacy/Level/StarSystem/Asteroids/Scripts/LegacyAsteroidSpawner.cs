@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace Systemagedon.App.StarSystem
 {
 
-    public class AsteroidSpawner : FrequencySpawner<Asteroid>
+    public class LegacyAsteroidSpawner : FrequencySpawner<LegacyAsteroid>
     {
         public RangeFloat AsteroidVelocity { get => _asteroidVelocity; }
 
@@ -27,7 +27,7 @@ namespace Systemagedon.App.StarSystem
 
 
 
-        protected sealed override void SetupOnInstance(Asteroid instance)
+        protected sealed override void SetupOnInstance(LegacyAsteroid instance)
         {
             Bezier randomCurve = new Bezier();
             randomCurve.PointA.y = _topBorder;
@@ -81,7 +81,7 @@ namespace Systemagedon.App.StarSystem
         }
 
 
-        private Vector3 CalculateOffsetToPlanet(LegacyPlanet target, Asteroid asteroid)
+        private Vector3 CalculateOffsetToPlanet(LegacyPlanet target, LegacyAsteroid asteroid)
         {
             float middleOfAsteroidPath = asteroid.Path.Length / 2f;
             Vector3 asteroidCrossPoint =

@@ -7,10 +7,10 @@ namespace Systemagedon.App.StarSystem
 
     public class AsteroidMovement : MonoBehaviour
     {
-        public Asteroid Target { get => _target; }
+        public LegacyAsteroid Target { get => _target; }
 
 
-        [SerializeField] private Asteroid _target;
+        [SerializeField] private LegacyAsteroid _target;
         [SerializeField] private float _velocity;
 
 

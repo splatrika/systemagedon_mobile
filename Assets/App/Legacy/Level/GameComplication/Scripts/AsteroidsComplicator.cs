@@ -18,7 +18,7 @@ namespace Systemagedon.App.GameComplicaton
         public RiseSteps Steps { get => _riseSteps; }
 
 
-        [SerializeField] private AsteroidSpawner _spawner;
+        [SerializeField] private LegacyAsteroidSpawner _spawner;
         [SerializeField] private RiseSteps _riseSteps;
 
 

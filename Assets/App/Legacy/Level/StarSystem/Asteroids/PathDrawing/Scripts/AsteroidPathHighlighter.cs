@@ -7,7 +7,7 @@ namespace Systemagedon.App.StarSystem
 {
     class AsteroidPathHighlighter : MonoBehaviour
     {
-        [SerializeField] private Asteroid _target;
+        [SerializeField] private LegacyAsteroid _target;
         [SerializeField] private CrossMarker _crossMarkerPrefab;
         [SerializeField] private LineRenderer _pathRenderer;
         [SerializeField] private Color _appearance;

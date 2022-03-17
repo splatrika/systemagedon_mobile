@@ -17,12 +17,12 @@ namespace Systemagedon.App.Score
 
         private class AsteroidRegistration
         {
-            public Asteroid Asteroid;
+            public LegacyAsteroid Asteroid;
             public Action DestroyListener;
         }
 
 
-        [SerializeField] private AsteroidSpawner _asteroidSpawner;
+        [SerializeField] private LegacyAsteroidSpawner _asteroidSpawner;
         private List<AsteroidRegistration> _registered = new List<AsteroidRegistration>();
 
 
@@ -43,7 +43,7 @@ namespace Systemagedon.App.Score
         }
 
 
-        private void OnAsteroidSpawned(Asteroid asteroid)
+        private void OnAsteroidSpawned(LegacyAsteroid asteroid)
         {
             AsteroidRegistration registration = new AsteroidRegistration();
             registration.Asteroid = asteroid;

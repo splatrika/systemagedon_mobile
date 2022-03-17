@@ -52,9 +52,9 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        private void OnPlanetRuined()
+        private void OnPlanetRuined(Planet sender)
         {
-            SomePlanetRuined?.Invoke(null); //TODO: FIX!
+            SomePlanetRuined?.Invoke(sender);
         }
 
 
