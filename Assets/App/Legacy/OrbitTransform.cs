@@ -4,7 +4,7 @@ using Systemagedon.App.Movement;
 namespace Systemagedon.App.StarSystem
 {
     [ExecuteInEditMode]
-    public class OrbitTransform : MonoBehaviour, IOneAxisTransform, IRounded
+    public class OrbitTransform : MonoBehaviour, IOneAxisTransform, IRoundPath
     {
         float IOneAxisTransform.Position { get => _anglePosition; }
 
