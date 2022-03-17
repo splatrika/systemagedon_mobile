@@ -1,7 +1,7 @@
 ﻿using Systemagedon.App.Movement;
 
 
-namespace Systemagedon.App.Gameplay
+namespace Systemagedon.App.Drawing
 {
 
     public interface ICurvePath

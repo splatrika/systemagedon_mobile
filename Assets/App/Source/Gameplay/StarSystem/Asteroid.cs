@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System;
 using Systemagedon.App.Movement;
+using Systemagedon.App.Drawing;
 
 namespace Systemagedon.App.Gameplay
 {
 
     /// <summary>
-    /// Init from script requaired
+    /// Init from script required
     /// </summary>
     public class Asteroid : MonoBehaviour, ICurvePath
     {

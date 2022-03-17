@@ -4,106 +4,74 @@ using Systemagedon.App.Movement;
 using System.Linq;
 using System;
 
-namespace Systemagedon.App.FX
+namespace Systemagedon.App.Drawing
 {
 
+    /// <summary>
+    /// Init from script required
+    /// </summary>
     public class CurveDrawer : MonoBehaviour
     {
-        [SerializeField] private CurveTransform _target;
-        [SerializeField] private LineRenderer _lineRenderer;
+        private LineRenderer _lineRenderer;
+        private ICurvePath _target;
+        private bool _inited = false;
 
 
-        public void Init(CurveTransform target, LineRenderer renderer)
+        public void Init(ICurvePath target, LineRenderer lineRenderer,
+            uint segmentsCount)
         {
-            if (_lineRenderer != null || _target != null)
+            if (_inited)
             {
-                throw new InvalidOperationException("Instance already initialized");
+                throw new InvalidOperationException("Already inited");
             }
-            if (!target)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
-            if (!renderer)
-            {
-                throw new ArgumentNullException(nameof(renderer));
-            }
-            _lineRenderer = renderer;
+            _lineRenderer = lineRenderer;
             _target = target;
-            SubscribeEvents();
-            Redraw();
+            Draw(segmentsCount);
+            _inited = true;
         }
 
 
         public void ChangeColor(Color color)
         {
+            CheckInit();
             _lineRenderer.Fill(color);
-        }
-
-
-        private void OnEnable()
-        {
-            if (_target)
-            {
-                SubscribeEvents();
-                Redraw();
-            }
-        }
-
-
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
         }
 
 
         private void Start()
         {
-            Validate();
+            CheckInit();
         }
 
 
-        private void SubscribeEvents()
+        private void Draw(uint segmentsCount)
         {
-            _target.CurveChanged += Redraw;
-            _target.CurveOffsetChanged += Redraw;
-        }
-
-
-        private void UnsubscribeEvents()
-        {
-            _target.CurveChanged -= Redraw;
-            _target.CurveOffsetChanged -= Redraw;
-        }
-
-
-        private void Validate()
-        {
-            if (!_target)
+            if (segmentsCount == 0)
             {
-                Debug.LogError("_target must be assigned from inspector or on init");
+                throw new ArgumentException("segmentsCount can't equals zero");
             }
-            if (!_lineRenderer)
+            Vector3[] points = new Vector3[segmentsCount];
+            for (int i = 0; i < segmentsCount; i++)
             {
-                Debug.LogError("_lineRenderer must be assigned from inspector " +
-                    "or on init");
+                float t = (float)i / segmentsCount;
+                points[i] = _target.Path.CalculatePoint(t);
             }
+            _lineRenderer.positionCount = (int)segmentsCount;
+            _lineRenderer.SetPositions(points);
         }
 
 
-        private void Redraw()
+        private void CheckInit()
         {
-            List<Vector3> points = new List<Vector3>();
-            Vector3 offset = _target.GetCurveOffset();
-            IEnumerable<CurveTransform.CurveSegment> segments =
-                _target.BakedSegments;
-            points.Add(segments.ElementAt(0).StartPoint + offset);
-            foreach (CurveTransform.CurveSegment segment in segments)
+            if (!_inited)
             {
-                points.Add(segment.EndPoint + offset);
+                throw new InvalidOperationException("Asteroid must inited " +
+                    "from script!");
             }
-            _lineRenderer.positionCount = points.Count;
-            _lineRenderer.SetPositions(points.ToArray());
         }
+
+
+
     }
 
 }
