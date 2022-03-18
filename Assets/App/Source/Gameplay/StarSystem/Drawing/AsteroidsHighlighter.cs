@@ -7,7 +7,7 @@ namespace Systemagedon.App.Gameplay.Drawing
     public class AsteroidsHighlighter : MonoBehaviour
     {
         [SerializeField] private AsteroidPathHighlight _highlightPrefab;
-        [SerializeField] private AsteroidsSpawner _asteroidsSpawner;
+        [SerializeField] private AsteroidsAttack _asteroidsSpawner;
 
 
         private List<AsteroidPathHighlight> _spawnedHighlights;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Systemagedon.App.Movement;
 using Random = UnityEngine.Random;
@@ -7,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class AsteroidsSpawner : FrequencySpawner<Asteroid>, IComplicatable
+    public class AsteroidsAttack : FrequencySpawner<Asteroid>, IComplicatable
     {
         [Serializable]
         public struct SpawnProperties
@@ -24,6 +25,10 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        public event Action<Asteroid> SomeDangerPassed;
+        public event Action<Asteroid> SomeDestroyed;
+
+
         [SerializeField] private float _topBorder;
         [SerializeField] private float _bottomBorder;
         [SerializeField] private SpawnProperties _properties;
@@ -33,6 +38,7 @@ namespace Systemagedon.App.Gameplay
         [SerializeField] private ComplicationProperties _complicationProperties;
 
 
+        private List<Asteroid> _alive = new List<Asteroid>();
         private Complicator _complicator;
         private IComplication _complication;
         private const string _invalidComplicationMessage = "Complication object" +
@@ -49,6 +55,9 @@ namespace Systemagedon.App.Gameplay
             path.PointB.y = _bottomBorder;
             MakeRandomLevers(ref path, _properties.LeverLength);
             instance.Init(target, path, speed);
+            _alive.Add(instance);
+            instance.DangerPassed += OnAsteroidDangerPassed;
+            instance.Destroyed += OnAsteroidDestroyed;
         }
 
 
@@ -61,6 +70,26 @@ namespace Systemagedon.App.Gameplay
                 Debug.LogError(_invalidComplicationMessage);
                 _complicationObject = null;
             }
+        }
+
+
+        protected sealed override void OnSpawnerDestroy()
+        {
+            _alive.ForEach((asteroid) => Destroy(asteroid.gameObject));
+        }
+
+
+        private void OnAsteroidDangerPassed(Asteroid sender)
+        {
+            SomeDangerPassed?.Invoke(sender);
+        }
+
+
+        private void OnAsteroidDestroyed(Asteroid sender)
+        {
+            SomeDestroyed?.Invoke(sender);
+            sender.DangerPassed -= OnAsteroidDangerPassed;
+            sender.Destroyed -= OnAsteroidDestroyed;
         }
 
 

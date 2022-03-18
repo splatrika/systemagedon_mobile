@@ -13,56 +13,26 @@ namespace Systemagedon.App.Gameplay
         public int Score { get; private set; }
 
 
-        [SerializeField] private AsteroidsSpawner _asteroidsSpawner;
+        [SerializeField] private AsteroidsAttack _asteroidsAttack;
         private List<Asteroid> _registeredAsteroids = new List<Asteroid>();
 
 
         private void Start()
         {
-            _asteroidsSpawner.Spawned += OnAsteroidSpawned;
+            _asteroidsAttack.SomeDangerPassed += OnSomeDangerPassed;
         }
 
 
         private void OnDestroy()
         {
-            _asteroidsSpawner.Spawned -= OnAsteroidSpawned;
-            while (_registeredAsteroids.Count > 0)
-            {
-                UnregisterAsteroid(_registeredAsteroids[0]);
-            }
+            _asteroidsAttack.SomeDangerPassed -= OnSomeDangerPassed;
         }
 
 
-        private void OnAsteroidSpawned(Asteroid asteroid)
-        {
-            asteroid.DangerPassed += OnDangerPassed;
-            asteroid.Destroyed += OnAsteroidDestroyed;
-            _registeredAsteroids.Add(asteroid);
-        }
-
-
-        private void OnDangerPassed(Asteroid sender)
+        private void OnSomeDangerPassed(Asteroid asteroid)
         {
             Score++;
-            ScoreChanged?.Invoke(Score);
-        }
-
-
-        private void OnAsteroidDestroyed(Asteroid sender)
-        {
-            UnregisterAsteroid(sender);
-        }
-
-
-        private void UnregisterAsteroid(Asteroid asteroid)
-        {
-            if (!_registeredAsteroids.Contains(asteroid))
-            {
-                throw new InvalidOperationException("Asteroid not registered");
-            }
-            asteroid.DangerPassed -= OnDangerPassed;
-            asteroid.Destroyed -= OnAsteroidDestroyed;
-            _registeredAsteroids.Remove(asteroid);
+            ScoreChanged.Invoke(Score);
         }
     }
 

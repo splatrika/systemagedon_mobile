@@ -71,6 +71,12 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke(this);
+        }
+
+
         private void CheckInit()
         {
             if (!_inited)
@@ -92,7 +98,6 @@ namespace Systemagedon.App.Gameplay
             if (newPosition > _pathTransform.Length)
             {
                 Destroy(gameObject);
-                Destroyed?.Invoke(this);
             }
             else
             {

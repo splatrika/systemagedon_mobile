@@ -19,6 +19,7 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
 
     protected abstract void SetupOnInstance(T instance);
     protected virtual void Validate() { }
+    protected virtual void OnSpawnerDestroy() { }
 
 
     public void RaiseSpawnPerSeconds(float value)
@@ -42,6 +43,7 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
     private void OnDestroy()
     {
         StopCoroutine(_spawningCoroutuine);
+        OnSpawnerDestroy();
     }
 
 
