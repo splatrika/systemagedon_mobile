@@ -11,7 +11,7 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
 
 
     [SerializeField] private T _prefab;
-    [SerializeField] private float _frequency = 1;
+    [SerializeField] protected float _frequency = 1;
 
 
     private Coroutine _spawningCoroutuine;

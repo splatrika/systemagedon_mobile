@@ -12,7 +12,7 @@ namespace Systemagedon.Tests
     public class AsteroidTests
     {
         private const string _configPath =
-            "Assets/Tests/Gameplay/StarSystem/Configs/AsteroidTests.asset";
+            "Assets/Tests/Automatic/Gameplay/StarSystem/Configs/AsteroidTests.asset";
 
 
         [UnityTest]

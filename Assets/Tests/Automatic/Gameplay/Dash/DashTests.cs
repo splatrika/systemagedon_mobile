@@ -14,7 +14,7 @@ namespace Systemagedon.Tests
         public IEnumerator DashFromInit()
         {
             GameObject orbitMovementPrefab =
-                TestsUtility.MakePrefabReady("Assets/Tests/Gameplay/Dash/Prefabs/OrbitMovement.prefab");
+                TestsUtility.MakePrefabReady("Assets/Tests/Automatic/Gameplay/Dash/Prefabs/OrbitMovement.prefab");
             OneAxisMovement movement =
                 orbitMovementPrefab.GetComponent<OneAxisMovement>();
 

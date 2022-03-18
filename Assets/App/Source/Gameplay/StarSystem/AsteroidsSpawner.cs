@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class AsteroidsSpawner : FrequencySpawner<Asteroid>
+    public class AsteroidsSpawner : FrequencySpawner<Asteroid>, IComplicatable
     {
         [Serializable]
         public struct SpawnProperties
@@ -16,14 +16,30 @@ namespace Systemagedon.App.Gameplay
             public RangeFloat AsteroidVelocity;
         }
 
+        [Serializable]
+        public struct ComplicationProperties
+        {
+            public RangeFloat AsteroidVelocity;
+            public float SpawnPerSecond;
+        }
+
 
         [SerializeField] private float _topBorder;
         [SerializeField] private float _bottomBorder;
         [SerializeField] private SpawnProperties _properties;
         [SerializeField] private StarSystem _starSystem;
+        [Header("Complication")]
+        [SerializeField] private GameObject _complicationObject;
+        [SerializeField] private ComplicationProperties _complicationProperties;
 
 
-        protected override void SetupOnInstance(Asteroid instance)
+        private Complicator _complicator;
+        private IComplication _complication;
+        private const string _invalidComplicationMessage = "Complication object" +
+            " must have component that implements IComplication";
+
+
+        protected sealed override void SetupOnInstance(Asteroid instance)
         {
             Planet target = SelectRandomPlanet(_starSystem);
             float speed = Random.Range(_properties.AsteroidVelocity.Min,
@@ -49,6 +65,30 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        private void Awake()
+        {
+            _complication = _complicationObject.GetComponent<IComplication>();
+            if (_complication == null)
+            {
+                Debug.LogError(_invalidComplicationMessage);
+            }
+            _complicator = gameObject.AddComponent<Complicator>();
+            _complicator.Init(_complication, this);
+        }
+
+
+        protected sealed override void Validate()
+        {
+            bool invalidComplication = _complicationObject
+                && _complicationObject.GetComponent<IComplication>() == null;
+            if (invalidComplication)
+            {
+                Debug.LogError(_invalidComplicationMessage);
+                _complicationObject = null;
+            }
+        }
+
+
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(0, 0, 1, 0.4f);
@@ -64,6 +104,14 @@ namespace Systemagedon.App.Gameplay
             int planetsCount = _starSystem.Planets.Count();
             int randomIndex = Random.Range(0, planetsCount);
             return _starSystem.Planets.ElementAt(randomIndex);
+        }
+
+
+        void IComplicatable.RaiseDifficulty()
+        {
+            _properties.AsteroidVelocity +=
+                _complicationProperties.AsteroidVelocity;
+            RaiseSpawnPerSeconds(_complicationProperties.SpawnPerSecond);
         }
     }
 

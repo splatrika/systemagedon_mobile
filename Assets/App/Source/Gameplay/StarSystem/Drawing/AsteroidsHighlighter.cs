@@ -38,6 +38,7 @@ namespace Systemagedon.App.Gameplay.Drawing
 
         private void OnHighlightDestroyed(AsteroidPathHighlight sender)
         {
+            Destroy(sender.gameObject);
             _spawnedHighlights.Remove(sender);
         }
 
