@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4acc9d0eee3c6483ab830c42eb479dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidsSpawner: {fileID: 858847943}
+  _asteroidsAttack: {fileID: 858847943}
 --- !u!4 &824525245
 Transform:
   m_ObjectHideFlags: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 858847944}
   - component: {fileID: 858847943}
   m_Layer: 0
-  m_Name: AsteroidsSpawner
+  m_Name: AsteroidsAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 858847942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39915e29e21434d25bec5bf033358837, type: 3}
+  m_Script: {fileID: 11500000, guid: 07a32958b29af4a2fa2a53a3d1d9895a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4473058783281778657, guid: 4b57653e51d7a4e43bf8d9bd1c5c745f, type: 3}
@@ -955,7 +955,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4547331560114669619, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: _radius
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4547331560114669619, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: _velocity
@@ -971,15 +971,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8661039682481770157, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8661039682481770157, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8661039682481770157, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8661039682481770157, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
