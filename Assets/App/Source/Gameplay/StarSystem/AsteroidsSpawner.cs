@@ -52,6 +52,18 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        protected sealed override void Validate()
+        {
+            bool invalidComplication = _complicationObject
+                && _complicationObject.GetComponent<IComplication>() == null;
+            if (invalidComplication)
+            {
+                Debug.LogError(_invalidComplicationMessage);
+                _complicationObject = null;
+            }
+        }
+
+
         private void MakeRandomLevers(ref Bezier curve, RangeFloat length)
         {
             float leversAngle = Random.Range(0f, Mathf.PI * 2);
@@ -74,18 +86,6 @@ namespace Systemagedon.App.Gameplay
             }
             _complicator = gameObject.AddComponent<Complicator>();
             _complicator.Init(_complication, this);
-        }
-
-
-        protected sealed override void Validate()
-        {
-            bool invalidComplication = _complicationObject
-                && _complicationObject.GetComponent<IComplication>() == null;
-            if (invalidComplication)
-            {
-                Debug.LogError(_invalidComplicationMessage);
-                _complicationObject = null;
-            }
         }
 
 
