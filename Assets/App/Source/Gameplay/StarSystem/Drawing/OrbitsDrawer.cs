@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Linq;
 using Systemagedon.App.FX;
+using Systemagedon.App.Extensions;
+using System;
 
 namespace Systemagedon.App.Gameplay
 {
@@ -19,10 +21,10 @@ namespace Systemagedon.App.Gameplay
 
         private void Start()
         {
-            _starSystem = _starSystemObject.GetComponent<IStarSystemProvider>();
+            OnValidate();
             if (_starSystem == null)
             {
-                Debug.LogError(invalidStarSystemMessage);
+                throw new NullReferenceException(nameof(_starSystem));
             }
             _starSystem.ModelUpdated += OnStarSystemUpdated;
             OnStarSystemUpdated(_starSystem);
@@ -64,13 +66,8 @@ namespace Systemagedon.App.Gameplay
 
         private void OnValidate()
         {
-            bool invalidStarSystem =
-                _starSystemObject.GetComponent<IStarSystemProvider>() == null;
-            if (invalidStarSystem)
-            {
-                Debug.LogError(invalidStarSystemMessage);
-                _starSystemObject = null;
-            }
+            this.AssignInterfaceField(ref _starSystemObject, ref _starSystem,
+                nameof(_starSystemObject));
         }
     }
 

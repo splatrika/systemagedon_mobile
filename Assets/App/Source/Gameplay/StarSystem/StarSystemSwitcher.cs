@@ -12,7 +12,7 @@ namespace Systemagedon.App.Gameplay
         public event Action<StarSystem> SwitchEnded;
         public event Action<StarSystem> SwitchStarted;
         public event Action<Planet> SomePlanetRuined;
-        public event Action<IStarSystemProvider> ModelUpdated; //TODO явная реализация
+        public event Action<IStarSystemProvider> ModelUpdated;
 
 
         public StarSystemGenerator Generator { get => _generator; }
@@ -22,7 +22,7 @@ namespace Systemagedon.App.Gameplay
 
         [SerializeField] private StarSystemGenerator _generator;
         [SerializeField] private GameObject _complicationObject;
-        [SerializeField] private ScriptableObject _callbackObject;
+        [SerializeField] private GameObject _callbackObject;
         [SerializeField] int _levelsToSwitch;
         [SerializeField] int _planetsAtStart;
 
@@ -39,7 +39,7 @@ namespace Systemagedon.App.Gameplay
         private void Start()
         {
             _complication = _complicationObject.GetComponent<IComplication>();
-            _callback = _callbackObject as ISwitchCallback;
+            _callback = _callbackObject.GetComponent<ISwitchCallback>();
             _complicator = gameObject.AddComponent<Complicator>();
             _complicator.Init(_complication, this);
             _planetsToSpawn = _planetsAtStart;
@@ -54,13 +54,11 @@ namespace Systemagedon.App.Gameplay
         private void OnDestroy()
         {
             Destroy(_complicator);
-            _callback.CallbackEnded -= OnCallbackEnded;
-        }
-
-
-        private void OnCallbackEnded()
-        {
-            _callbackEnded = true;
+            if (_callback != null)
+            {
+                _callback.CallbackEnded -= OnCallbackEnded;
+            }
+            OnRemoveCurrent();
         }
 
 
@@ -80,7 +78,8 @@ namespace Systemagedon.App.Gameplay
             if (_callback != null)
             {
                 _callback.Run();
-                yield return new WaitUntil(() => !_callbackEnded);
+                yield return new WaitUntil(() => _callbackEnded);
+                _callbackEnded = false;
             }
             if (_planetsToSpawn != _generator.CalculateMaxPlanets())
             {
@@ -93,12 +92,31 @@ namespace Systemagedon.App.Gameplay
 
         private void ChangeStarSystem()
         {
+            OnRemoveCurrent();
+            _current = _generator.GenerateAndSpawn(_planetsToSpawn);
+            ModelUpdated?.Invoke(_current);
+            _current.SomePlanetRuined += OnSomePlanetRuined;
+        }
+
+
+        private void OnRemoveCurrent()
+        {
             if (_current)
             {
                 Destroy(_current.gameObject);
+                _current.SomePlanetRuined -= OnSomePlanetRuined;
             }
-            _current = _generator.GenerateAndSpawn(_planetsToSpawn);
-            ModelUpdated?.Invoke(_current);
+        }
+
+        private void OnCallbackEnded()
+        {
+            _callbackEnded = true;
+        }
+
+
+        private void OnSomePlanetRuined(Planet planet)
+        {
+            SomePlanetRuined?.Invoke(planet);
         }
 
 
