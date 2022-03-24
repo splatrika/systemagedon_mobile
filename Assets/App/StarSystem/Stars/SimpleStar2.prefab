@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17f1c6346c6cb46b6bbefed7cb9e8d2f, type: 2}
+  - {fileID: 2100000, guid: 5ec509db1e335400a83ec0ae9f234936, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4166645138436343896}
   - component: {fileID: 5617846531620422372}
   m_Layer: 0
-  m_Name: SimpleStar
+  m_Name: SimpleStar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9086478, b: 0.6084906, a: 1}
+  m_Color: {r: 0.8644876, g: 0.60784316, b: 1, a: 1}
   m_Intensity: 12
   m_Range: 30.24
   m_SpotAngle: 30

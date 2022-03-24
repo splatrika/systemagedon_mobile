@@ -45,6 +45,12 @@ namespace Systemagedon.App.Gameplay
         private IComplication _complication;
 
 
+        public void Clear()
+        {
+            _alive.ForEach(asteroid => Destroy(asteroid.gameObject));
+        }
+
+
         protected sealed override void SetupOnInstance(Asteroid instance)
         {
             Planet target = _starSystem.Planets.SelectRandom();
@@ -87,6 +93,7 @@ namespace Systemagedon.App.Gameplay
             SomeDestroyed?.Invoke(sender);
             sender.DangerPassed -= OnAsteroidDangerPassed;
             sender.Destroyed -= OnAsteroidDestroyed;
+            _alive.Remove(sender);
         }
 
 
