@@ -24,8 +24,7 @@ namespace Systemagedon.App.Gameplay
 
         public void Restart()
         {
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentScene);
+            new RegularMode().LoadAndPlay();
         }
 
 

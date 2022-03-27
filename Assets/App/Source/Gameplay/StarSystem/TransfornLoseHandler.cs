@@ -6,11 +6,11 @@ using Systemagedon.App.Extensions;
 namespace Systemagedon.App.UI
 {
 
-    public class TransfornLoseController : MonoBehaviour
+    public class TransfornLoseHandler : MonoBehaviour
     {
         [SerializeField] private GameObject _targetObject;
         [SerializeField] private Camera _camera;
-        [SerializeField] private TransformLoseView _viewPrefab;
+        [SerializeField] private TransformLoseUI _viewPrefab;
 
 
         private ITransformLose _target;
@@ -35,7 +35,7 @@ namespace Systemagedon.App.UI
 
         private void OnLose(Transform transform)
         {
-            TransformLoseView view = Instantiate(_viewPrefab);
+            TransformLoseUI view = Instantiate(_viewPrefab);
             view.Init(_target);
         }
 
