@@ -24,8 +24,15 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        private void Start()
+        {
+            _animator.enabled = false;
+        }
+
+
         private IEnumerator AnimationCoroutine()
         {
+            _animator.enabled = true;
             _animator.Play(StartAnimation);
             AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(state.length);
@@ -33,7 +40,8 @@ namespace Systemagedon.App.Gameplay
             CallbackEnded?.Invoke();
             state = _animator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(state.length);
-            _animator.Play(IdleAnimation);
+            _animator.enabled = false;
+            
         }
     }
 

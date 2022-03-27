@@ -9,9 +9,13 @@ namespace Systemagedon.App.Gameplay
     [RequireComponent(typeof(AsteroidsAttack))]
     [RequireComponent(typeof(StarSystemSwitcher))]
     [RequireComponent(typeof(FrequencyComplication))]
-    public class RegularGameplay : MonoBehaviour, ITransformLose
+    public class RegularGameplay : MonoBehaviour, IScore
     {
-        public event Action<Transform> Lose;
+        public event Action<RegularLoseContext> Lose;
+        public event Action<int> ScoreChanged;
+
+
+        public int Score { get => _scoreCounter.Score; }
 
 
         [SerializeField] private float _safeTime;
@@ -20,19 +24,24 @@ namespace Systemagedon.App.Gameplay
         private AsteroidsAttack _atack;
         private StarSystemSwitcher _starSystem;
         private FrequencyComplication _complication;
+        private RegularScoreCounter _scoreCounter;
+        private RegularMode _mode = new RegularMode();
 
 
         public void Restart()
         {
-            new RegularMode().LoadAndPlay();
+            _mode.LoadAndPlay();
         }
 
 
-        private void Start()
+        private void Awake()
         {
             _atack = GetComponent<AsteroidsAttack>();
             _starSystem = GetComponent<StarSystemSwitcher>();
             _complication = GetComponent<FrequencyComplication>();
+            _scoreCounter = gameObject.AddComponent<RegularScoreCounter>();
+            _scoreCounter.Init(_atack);
+            _scoreCounter.ScoreChanged += OnScoreChanged;
             _starSystem.SomePlanetRuined += OnSomePlanetRuined;
             _starSystem.SwitchStarted += OnSwitchStarted;
             _starSystem.SwitchEnded += OnSwitchEnded;
@@ -42,6 +51,7 @@ namespace Systemagedon.App.Gameplay
 
         private void OnDestroy()
         {
+            _scoreCounter.ScoreChanged -= OnScoreChanged;
             _starSystem.SomePlanetRuined -= OnSomePlanetRuined;
             _starSystem.SwitchStarted -= OnSwitchStarted;
             _starSystem.SwitchEnded -= OnSwitchEnded;
@@ -57,7 +67,13 @@ namespace Systemagedon.App.Gameplay
 
         private void OnSomePlanetRuined(Planet planet)
         {
-            Lose?.Invoke(planet.transform);
+            SystemagedonApp.HighscoresService.Send(Score, _mode);
+            Lose.Invoke(new RegularLoseContext()
+            {
+                Ruined = planet,
+                Score = Score,
+                Sender = this
+            });
             _atack.Clear();
             _atack.Stop();
             _complication.enabled = false;
@@ -74,6 +90,12 @@ namespace Systemagedon.App.Gameplay
         private void OnSwitchEnded(StarSystem newSystem)
         {
             StartCoroutine(OnSwitchEndedCoroutine());
+        }
+
+
+        private void OnScoreChanged(int value)
+        {
+            ScoreChanged?.Invoke(value);
         }
 
 
