@@ -27,17 +27,20 @@ namespace Systemagedon.App.Gameplay
         private bool _inited = false;
 
 
-        public void Init(float radius, float velocity)
+        public void Init(float orbitRadius, float velocity, float scale = 1,
+            float anglePosition = 0)
         {
             if (_inited)
             {
                 throw new InvalidOperationException("Already inited");
             }
-            _radius = radius;
+            _radius = orbitRadius;
             _velocity = velocity;
             _orbit.SetRadius(_radius);
+            _orbit.SetPosition(anglePosition);
             _movement.Init(_orbit, _velocity);
             _dash.Init(_movement, _dashProperties);
+            transform.localScale = Vector3.one * scale;
             _inited = true;
         }
 
@@ -78,6 +81,14 @@ namespace Systemagedon.App.Gameplay
             {
                 Init(_radius, _velocity);
             }
+        }
+
+
+        private void OnDestroy()
+        {
+            Destroy(_orbit);
+            Destroy(_movement);
+            Destroy(_dash);
         }
     }
 

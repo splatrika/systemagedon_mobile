@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Linq;
 using Systemagedon.App.FX;
+using Systemagedon.App.Extensions;
+using System;
 
 namespace Systemagedon.App.Gameplay
 {
@@ -8,17 +10,40 @@ namespace Systemagedon.App.Gameplay
     public class OrbitsDrawer : MonoBehaviour
     {
         [SerializeField] private CircleDrawer _drawerPrefab;
-        [SerializeField] private StarSystem _target;
+        [SerializeField] private GameObject _starSystemObject;
 
 
         private CircleDrawer[] _createdDrawers;
+        private IStarSystemProvider _starSystem;
+        private string invalidStarSystemMessage = "StarSystemObject must have" +
+            "component that implements IStarSystemProvider";
 
 
         private void Start()
         {
-            _createdDrawers = new CircleDrawer[_target.Planets.Count()];
+            OnValidate();
+            if (_starSystem == null)
+            {
+                throw new NullReferenceException(nameof(_starSystem));
+            }
+            _starSystem.ModelUpdated += OnStarSystemUpdated;
+            OnStarSystemUpdated(_starSystem);
+        }
+
+
+        private void OnDestroy()
+        {
+            _starSystem.ModelUpdated -= OnStarSystemUpdated;
+            OnRemoveDrawers();
+        }
+
+
+        private void OnStarSystemUpdated(IStarSystemProvider sender)
+        {
+            OnRemoveDrawers();
+            _createdDrawers = new CircleDrawer[_starSystem.Planets.Count()];
             int i = 0;
-            foreach (Planet planet in _target.Planets)
+            foreach (Planet planet in _starSystem.Planets)
             {
                 _createdDrawers[i] = Instantiate(_drawerPrefab);
                 _createdDrawers[i].Init(planet);
@@ -27,14 +52,23 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        private void OnDestroy()
+        private void OnRemoveDrawers()
         {
-            foreach (CircleDrawer drawer in _createdDrawers)
+            if (_createdDrawers != null)
             {
-                Destroy(drawer);
+                foreach (CircleDrawer drawer in _createdDrawers)
+                {
+                    Destroy(drawer.gameObject);
+                }
             }
+        }
+
+
+        private void OnValidate()
+        {
+            this.AssignInterfaceField(ref _starSystemObject, ref _starSystem,
+                nameof(_starSystemObject));
         }
     }
 
 }
-

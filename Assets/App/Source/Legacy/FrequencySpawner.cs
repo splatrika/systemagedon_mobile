@@ -8,10 +8,13 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
 
     
     public float SpawnPerSecond { get => 1 / _frequency; }
+    public bool IsRunned { get => _spawningCoroutuine != null; }
+    public bool RunOnStart { get => _runOnStart; }
 
 
     [SerializeField] private T _prefab;
     [SerializeField] protected float _frequency = 1;
+    [SerializeField] private bool _runOnStart = true;
 
 
     private Coroutine _spawningCoroutuine;
@@ -28,6 +31,27 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
     }
 
 
+    public void Run()
+    {
+        if (IsRunned)
+        {
+            throw new InvalidOperationException("Already runnded");
+        }
+        _spawningCoroutuine = StartCoroutine(SpawningCoroutine());
+    }
+
+
+    public void Stop()
+    {
+        if (!IsRunned)
+        {
+            throw new InvalidOperationException("Trying to stop not runned spawner");
+        }
+        StopCoroutine(_spawningCoroutuine);
+        _spawningCoroutuine = null;
+    }
+
+
     private void SetSpawnsPerSecond(float value)
     {
         _frequency = 1f / value;
@@ -36,13 +60,19 @@ public abstract class FrequencySpawner<T> : MonoBehaviour where T : Component
 
     private void Start()
     {
-        _spawningCoroutuine = StartCoroutine(SpawningCoroutine());
+        if (_runOnStart && !IsRunned)
+        {
+            Run();
+        }
     }
 
 
     private void OnDestroy()
     {
-        StopCoroutine(_spawningCoroutuine);
+        if (IsRunned)
+        {
+            Stop();
+        }
         OnSpawnerDestroy();
     }
 

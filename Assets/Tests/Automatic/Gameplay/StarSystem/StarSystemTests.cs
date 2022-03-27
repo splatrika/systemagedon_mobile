@@ -22,7 +22,7 @@ namespace Systemagedon.Tests
             }
 
             StarSystem starSystem = new GameObject().AddComponent<StarSystem>();
-            starSystem.Init(planets);
+            starSystem.Init(planets, new GameObject().AddComponent<Star>());
             starSystem.SomePlanetRuined += (Planet planet) => ruinedInvoked = true;
 
             yield return null;

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Systemagedon.App.Movement;
+using Systemagedon.App.Extensions;
 using Random = UnityEngine.Random;
 
 namespace Systemagedon.App.Gameplay
@@ -32,22 +33,27 @@ namespace Systemagedon.App.Gameplay
         [SerializeField] private float _topBorder;
         [SerializeField] private float _bottomBorder;
         [SerializeField] private SpawnProperties _properties;
-        [SerializeField] private StarSystem _starSystem;
+        [SerializeField] private GameObject _starSystemObject;
         [Header("Complication")]
         [SerializeField] private GameObject _complicationObject;
         [SerializeField] private ComplicationProperties _complicationProperties;
 
 
+        private IStarSystemProvider _starSystem;
         private List<Asteroid> _alive = new List<Asteroid>();
         private Complicator _complicator;
         private IComplication _complication;
-        private const string _invalidComplicationMessage = "Complication object" +
-            " must have component that implements IComplication";
+
+
+        public void Clear()
+        {
+            _alive.ForEach(asteroid => Destroy(asteroid.gameObject));
+        }
 
 
         protected sealed override void SetupOnInstance(Asteroid instance)
         {
-            Planet target = SelectRandomPlanet(_starSystem);
+            Planet target = _starSystem.Planets.SelectRandom();
             float speed = Random.Range(_properties.AsteroidVelocity.Min,
                 _properties.AsteroidVelocity.Max);
             Bezier path = new Bezier();
@@ -63,13 +69,10 @@ namespace Systemagedon.App.Gameplay
 
         protected sealed override void Validate()
         {
-            bool invalidComplication = _complicationObject
-                && _complicationObject.GetComponent<IComplication>() == null;
-            if (invalidComplication)
-            {
-                Debug.LogError(_invalidComplicationMessage);
-                _complicationObject = null;
-            }
+            this.AssignInterfaceField(ref _complicationObject, ref _complication,
+                nameof(_complicationObject));
+            this.AssignInterfaceField(ref _starSystemObject, ref _starSystem,
+                nameof(_starSystemObject));
         }
 
 
@@ -90,6 +93,7 @@ namespace Systemagedon.App.Gameplay
             SomeDestroyed?.Invoke(sender);
             sender.DangerPassed -= OnAsteroidDangerPassed;
             sender.Destroyed -= OnAsteroidDestroyed;
+            _alive.Remove(sender);
         }
 
 
@@ -108,10 +112,14 @@ namespace Systemagedon.App.Gameplay
 
         private void Awake()
         {
-            _complication = _complicationObject.GetComponent<IComplication>();
+            Validate();
             if (_complication == null)
             {
-                Debug.LogError(_invalidComplicationMessage);
+                throw new NullReferenceException(nameof(_complication));
+            }
+            if (_starSystem == null)
+            {
+                throw new NullReferenceException(nameof(_starSystem));
             }
             _complicator = gameObject.AddComponent<Complicator>();
             _complicator.Init(_complication, this);
@@ -125,14 +133,6 @@ namespace Systemagedon.App.Gameplay
                 new Vector3(10, 0.1f, 10));
             Gizmos.DrawCube(new Vector3(0, _bottomBorder, 0),
                 new Vector3(10, 0.1f, 10));
-        }
-
-
-        private Planet SelectRandomPlanet(StarSystem from)
-        {
-            int planetsCount = _starSystem.Planets.Count();
-            int randomIndex = Random.Range(0, planetsCount);
-            return _starSystem.Planets.ElementAt(randomIndex);
         }
 
 
