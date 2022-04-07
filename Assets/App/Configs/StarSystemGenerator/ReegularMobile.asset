@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c11cf2d97f84f1da9486a273811e99, type: 3}
+  m_Name: ReegularMobile
+  m_EditorClassIdentifier: 
+  _maxRadius: 10.87
+  _planetPrefabs:
+  - {fileID: 5771516282061207238, guid: 8ec6d07a2bbde49649ea95ca4c2b4461, type: 3}
+  - {fileID: 5771516282061207238, guid: 2f2262f421f714cf1bd0d1e6ec6d6cd7, type: 3}
+  - {fileID: 5771516282061207238, guid: 00d5816e95d3d48f38657c948daf0c23, type: 3}
+  - {fileID: 5771516282061207238, guid: edabe53a61e6b4659a4ddd632078b387, type: 3}
+  - {fileID: 5771516282061207238, guid: e533beae9ac784bac86d6ba06aa0d42d, type: 3}
+  - {fileID: 5771516282061207238, guid: 5b91c3e6198a44d31b14c63e37a94688, type: 3}
+  _planetSize:
+    Min: 1.56
+    Max: 2.6
+  _planetSpeed:
+    Min: 0.2
+    Max: 0.8
+  _minPlanetsDistance: 0.24
+  _starPrefabs:
+  - {fileID: 4166645138436343896, guid: 0b99c59576b0f452aa2a797b7faf45cf, type: 3}
+  - {fileID: 4166645138436343896, guid: 74444b4169b474b4ea54989818be30d4, type: 3}
+  _starSize:
+    Min: 2.83
+    Max: 3.1

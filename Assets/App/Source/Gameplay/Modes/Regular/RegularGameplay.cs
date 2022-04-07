@@ -68,7 +68,7 @@ namespace Systemagedon.App.Gameplay
         private void OnSomePlanetRuined(Planet planet)
         {
             SystemagedonApp.HighscoresService.Send(Score, _mode);
-            Lose.Invoke(new RegularLoseContext()
+            Lose?.Invoke(new RegularLoseContext()
             {
                 Ruined = planet,
                 Score = Score,

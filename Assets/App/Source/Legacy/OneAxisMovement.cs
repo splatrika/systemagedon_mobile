@@ -50,26 +50,35 @@ namespace Systemagedon.App.Movement
         }
 
 
-        public Vector3 CalculatePoint(float afterSeconds, float fromPosition)
+        public Vector3 CalculatePoint(float afterSeconds, float fromPosition,
+            bool includeAdditionalVelocity = true)
         {
-            return _target.CalculatePoint(fromPosition + TotalVelocity * afterSeconds);
+            float velocity = (includeAdditionalVelocity) ? TotalVelocity : _velocity;
+            return _target.CalculatePoint(fromPosition + velocity * afterSeconds);
         }
 
 
-        public Vector3 CalculatePoint(float afterSeconds)
+        public Vector3 CalculatePoint(float afterSeconds,
+            bool includeAdditionalVelocity = true)
         {
             if (Target == null)
             {
                 throw new NullReferenceException("Target must be assigned");
             }
-            return CalculatePoint(afterSeconds, _target.Position);
+            return CalculatePoint(afterSeconds, _target.Position,
+                includeAdditionalVelocity);
         }
 
 
-        public float CalculateSeconds(float fromPosition, float toPosition)
+        public float CalculateSeconds(float fromPosition, float toPosition,
+            bool includeAdditionalVelocity = true)
         {
             float distance = Mathf.Abs(toPosition - fromPosition);
-            return distance / TotalVelocity;
+            if (includeAdditionalVelocity)
+            {
+                return distance / TotalVelocity;
+            }
+            return distance / _velocity;
         }
 
 

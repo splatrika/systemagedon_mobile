@@ -39,7 +39,10 @@ namespace Systemagedon.App.Gameplay
         private void Start()
         {
             _complication = _complicationObject.GetComponent<IComplication>();
-            _callback = _callbackObject.GetComponent<ISwitchCallback>();
+            if (_callbackObject)
+            {
+                _callback = _callbackObject.GetComponent<ISwitchCallback>();
+            }
             _complicator = gameObject.AddComponent<Complicator>();
             _complicator.Init(_complication, this);
             _planetsToSpawn = _planetsAtStart;
