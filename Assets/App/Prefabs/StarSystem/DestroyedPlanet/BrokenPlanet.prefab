@@ -257,6 +257,26 @@ PrefabInstance:
       propertyPath: ShapeModule.radius.value
       value: 0.61
       objectReference: {fileID: 0}
+    - target: {fileID: 19878980, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 19990644, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3290164117410732715, guid: b26664e17bbd94e7da1e99c0b51825e8, type: 3}
+    - target: {fileID: 19990644, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: m_Mesh1
+      value: 
+      objectReference: {fileID: 2689104738442573362, guid: b26664e17bbd94e7da1e99c0b51825e8, type: 3}
+    - target: {fileID: 19990644, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: m_Mesh2
+      value: 
+      objectReference: {fileID: 1069957118009403698, guid: b26664e17bbd94e7da1e99c0b51825e8, type: 3}
+    - target: {fileID: 19990644, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
+      propertyPath: m_Mesh3
+      value: 
+      objectReference: {fileID: -2465235202482714275, guid: b26664e17bbd94e7da1e99c0b51825e8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a2ff99c55e0ff40873274bac746b14, type: 3}
 --- !u!4 &6173460904641065908 stripped

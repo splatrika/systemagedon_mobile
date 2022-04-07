@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using Systemagedon.App.Gameplay;
@@ -36,3 +37,4 @@ public class StarSystemSwitcherEditor : Editor
         _target = target as StarSystemSwitcher;
     }
 }
+#endif
