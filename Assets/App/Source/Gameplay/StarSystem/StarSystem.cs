@@ -11,8 +11,8 @@ namespace Systemagedon.App.Gameplay
         public event Action<IStarSystemProvider> ModelUpdated;
 
 
-        public IEnumerable<Planet> Planets { get => _planets; }
-        public IEnumerable<IDash> Dashes { get => _planets; }
+        public IEnumerable<Planet> Planets { get => GetPlanets(); }
+        public IEnumerable<IDash> Dashes { get => GetPlanets(); }
 
 
         [SerializeField] private Planet[] _planetsInspector;
@@ -42,6 +42,13 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        public IEnumerable<Planet> GetPlanets()
+        {
+            Start();
+            return _planets;
+        }
+
+
         private void Awake()
         {
             _planets = _planetsInspector;
@@ -51,7 +58,7 @@ namespace Systemagedon.App.Gameplay
         private void OnDestroy()
         {
             foreach (Planet planet in _planets)
-            {
+            { //TODO fix missing asset
                 planet.Ruined -= OnPlanetRuined;
                 Destroy(planet.gameObject);
             }
@@ -70,8 +77,8 @@ namespace Systemagedon.App.Gameplay
             if (!_inited)
             {
                 Init(_planetsInspector, _starInspector);
+                ModelUpdated?.Invoke(this);
             }
-            ModelUpdated?.Invoke(this);
         }
     }
 

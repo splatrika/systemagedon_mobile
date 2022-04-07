@@ -63,7 +63,7 @@ namespace Systemagedon.App.Gameplay
         public Vector3 CalculatePoint(float afterSeconds)
         {
             Start();
-            return _movement.CalculatePoint(afterSeconds);
+            return _movement.CalculatePoint(afterSeconds, false);
         }
 
 
@@ -79,7 +79,7 @@ namespace Systemagedon.App.Gameplay
         {
             if (!_inited)
             {
-                Init(_radius, _velocity);
+                Init(_radius, _velocity, transform.localScale.x);
             }
         }
 
@@ -89,6 +89,12 @@ namespace Systemagedon.App.Gameplay
             Destroy(_orbit);
             Destroy(_movement);
             Destroy(_dash);
+        }
+
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
     }
 

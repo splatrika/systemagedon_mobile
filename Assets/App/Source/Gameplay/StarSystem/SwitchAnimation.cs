@@ -34,12 +34,16 @@ namespace Systemagedon.App.Gameplay
         {
             _animator.enabled = true;
             _animator.Play(StartAnimation);
+            yield return null;
             AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(state.length);
             _animator.Play(EndAnimation);
             CallbackEnded?.Invoke();
+            yield return null;
             state = _animator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(state.length);
+            _animator.Play(IdleAnimation);
+            yield return null;
             _animator.enabled = false;
             
         }

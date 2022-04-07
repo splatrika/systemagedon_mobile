@@ -8,6 +8,7 @@ namespace Systemagedon.App.Gameplay
     public class RegularLoseVisualizer : MonoBehaviour
     {
         [SerializeField] private RegularLoseUI _uiPrefab;
+        [SerializeField] private Canvas _canvas;
         [SerializeField] private Camera _camera;
         [SerializeField] private RegularGameplay _gameplay;
         [Header("Look at ruined planet")]
@@ -42,7 +43,9 @@ namespace Systemagedon.App.Gameplay
             _camera.transform.DOLookAt(_lookPosition, _transition);
             _camera.DOFieldOfView(_cameraFOV, _transition);
             yield return new WaitForSeconds(_transition);
+            print("UI");
             RegularLoseUI ui = Instantiate(_uiPrefab);
+            ui.transform.SetParent(_canvas.transform, false);
             ui.Init(context);
         }
     }
