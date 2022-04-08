@@ -49,6 +49,24 @@ namespace Systemagedon.App.Gameplay
         }
 
 
+        public void AddPlanet(Planet planet)
+        {
+            if (!planet)
+            {
+                throw new NullReferenceException(nameof(planet));
+            }
+            Planet alreadyAdded = Array.Find(_planets, (item) => item == planet);
+            if (alreadyAdded != null)
+            {
+                throw new InvalidOperationException("This planet already added " +
+                    "to star system");
+            }
+            Array.Resize(ref _planets, _planets.Length + 1);
+            _planets[_planets.Length - 1] = planet;
+            ModelUpdated?.Invoke(this);
+        }
+
+
         private void Awake()
         {
             _planets = _planetsInspector;
