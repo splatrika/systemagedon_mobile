@@ -108,6 +108,7 @@ namespace Systemagedon.App.Gameplay
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (!collision.rigidbody) return;
             Planet planet = collision.rigidbody.GetComponent<Planet>();
             if (planet)
             {

@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d40968d20421d47c0b0c491c48275b71, type: 3}
-  m_Name: AsteroidTests
+  m_Script: {fileID: 11500000, guid: 2ebb9f6ff9a0144919dd17c4030804b8, type: 3}
+  m_Name: PlanetRestoreTests
   m_EditorClassIdentifier: 
-  _asteroidPrefab: {fileID: 7443315447540714307, guid: 6038de4f2112240ac860c22686de6db1, type: 3}
-  _planetPrefab: {fileID: 5771516282061207238, guid: 8ec6d07a2bbde49649ea95ca4c2b4461, type: 3}
+  _planetPrefab: {fileID: 5771516282061207238, guid: 2f2262f421f714cf1bd0d1e6ec6d6cd7, type: 3}

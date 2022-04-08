@@ -5,43 +5,51 @@ using Systemagedon.App.Movement;
 
 namespace Systemagedon.App.Gameplay
 {
-
+    /// <summary>
+    /// Only init from prefab allowed. Use Planet.InitFrom
+    /// </summary>
     public class Planet : MonoBehaviour, IDash, IRoundPath, IMovable
     {
         public event Action<Planet> Ruined;
+        public event Action<Planet, PlanetRuins> RuinedAdvanced;
 
 
         public float Radius { get => _radius; }
         public Vector3 Center { get => _orbit.Center; }
+        public Planet OriginalPrefab { get => _originalPrefab; }
+        public float Velocity { get => _velocity; }
+        public float Scale { get => transform.localScale.x; }
+        public float AnglePosition { get => _orbit.AnglePosition; }
 
 
         [SerializeField] private float _radius = 1;
         [SerializeField] private float _velocity = 1;
         [SerializeField] private Dash.PropertiesFields _dashProperties =
             Dash.PropertiesFields.Default;
+        [SerializeField] private PlanetRuins _ruinsPrefab;
 
 
         private OrbitTransform _orbit;
         private OneAxisMovement _movement;
         private Dash _dash;
+        private Planet _originalPrefab;
         private bool _inited = false;
 
 
-        public void Init(float orbitRadius, float velocity, float scale = 1,
+        public static Planet InitFrom(Planet prefab, float orbitRadius, float velocity, float scale = 1,
             float anglePosition = 0)
         {
-            if (_inited)
-            {
-                throw new InvalidOperationException("Already inited");
-            }
-            _radius = orbitRadius;
-            _velocity = velocity;
-            _orbit.SetRadius(_radius);
-            _orbit.SetPosition(anglePosition);
-            _movement.Init(_orbit, _velocity);
-            _dash.Init(_movement, _dashProperties);
-            transform.localScale = Vector3.one * scale;
-            _inited = true;
+            Planet instance = Instantiate(prefab);
+            instance._originalPrefab = prefab;
+            instance._radius = orbitRadius;
+            instance._velocity = velocity;
+            instance._orbit.SetRadius(instance._radius);
+            instance._orbit.SetPosition(anglePosition);
+            instance._movement.Init(instance._orbit, instance._velocity);
+            instance._dash.Init(instance._movement, instance._dashProperties);
+            instance.transform.localScale = Vector3.one * scale;
+            instance._inited = true;
+            return instance;
         }
 
 
@@ -50,6 +58,8 @@ namespace Systemagedon.App.Gameplay
             Start();
             Destroy(gameObject);
             Ruined?.Invoke(this);
+            PlanetRuins ruins = PlanetRuins.InitFrom(_ruinsPrefab, this);
+            RuinedAdvanced?.Invoke(this, ruins);
         }
 
 
@@ -79,7 +89,11 @@ namespace Systemagedon.App.Gameplay
         {
             if (!_inited)
             {
-                Init(_radius, _velocity, transform.localScale.x);
+                Debug.LogError("Only init from prefab allowed. Use Planet.InitFrom");
+            }
+            if (!_ruinsPrefab)
+            {
+                throw new NullReferenceException(nameof(_ruinsPrefab));
             }
         }
 

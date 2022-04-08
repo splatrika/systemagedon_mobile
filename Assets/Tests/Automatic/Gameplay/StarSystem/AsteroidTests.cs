@@ -26,10 +26,8 @@ namespace Systemagedon.Tests
                 Debug.LogError("Config has not fully setuped");
             }
 
-            Planet planet = Object.Instantiate(config.PlanetPrefab);
+            Planet planet = Planet.InitFrom(config.PlanetPrefab, 2, 1);
             Asteroid asteroid = Object.Instantiate(config.AsteroidPrefab);
-
-            planet.Init(2, 1);
 
             Bezier path = new Bezier
             {

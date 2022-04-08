@@ -3,22 +3,28 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Systemagedon.App.Gameplay;
+using UnityEditor;
 
 namespace Systemagedon.Tests
 {
 
     public class StarSystemTests
     {
+        private const string _configPath =
+                "Assets/Tests/Automatic/Gameplay/StarSystem/Configs/StarSystemTests.asset";
+
         [UnityTest]
         public IEnumerator SomePlanetRuinedTests()
         {
+            StarSystemTestsConfig config =
+                       AssetDatabase.LoadAssetAtPath<StarSystemTestsConfig>(_configPath);
+
             bool ruinedInvoked = false;
 
             Planet[] planets = new Planet[2];
             for (int i = 0; i < planets.Length; i++)
             {
-                planets[i] = new GameObject().AddComponent<Planet>();
-                planets[i].Init(i * 2, 1);
+                planets[i] = Planet.InitFrom(config.PlanetPrefab, i * 2, 1);
             }
 
             StarSystem starSystem = new GameObject().AddComponent<StarSystem>();
