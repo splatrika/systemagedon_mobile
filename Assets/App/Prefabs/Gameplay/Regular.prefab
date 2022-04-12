@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 2623292896255966831}
   - component: {fileID: 2623292896255966828}
   - component: {fileID: 2623292896255966829}
+  - component: {fileID: 1590725593445920132}
   m_Layer: 0
   m_Name: Gameplay
   m_TagString: Untagged
@@ -116,28 +117,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2623292896255966824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07a32958b29af4a2fa2a53a3d1d9895a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b91cf7426e22447f83cf6d66599423e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 7443315447540714307, guid: 6038de4f2112240ac860c22686de6db1, type: 3}
-  _frequency: 2
-  _runOnStart: 0
-  _topBorder: 27.39
-  _bottomBorder: -37.6
-  _properties:
-    LeverLength:
-      Min: 40
-      Max: 60
-    AsteroidVelocity:
-      Min: 20
-      Max: 25
-  _starSystemObject: {fileID: 2623292896255966824}
-  _complicationObject: {fileID: 2623292896255966824}
-  _complicationProperties:
-    AsteroidVelocity:
-      Min: 2
-      Max: 2
-    SpawnPerSecond: 0.1
+  _frequency: 10
 --- !u!114 &2623292896255966828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +151,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frequency: 10
+--- !u!114 &1590725593445920132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2623292896255966824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef2daa8026e04300a1011767489f0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 7443315447540714307, guid: 6038de4f2112240ac860c22686de6db1, type: 3}
+  _frequency: 2
+  _runOnStart: 0
+  _topBorder: 0
+  _bottomBorder: 0
+  _properties:
+    LeverLength:
+      Min: 0
+      Max: 0
+    AsteroidVelocity:
+      Min: 0
+      Max: 0
+  _starSystemObject: {fileID: 0}
+  _generator: {fileID: 0}
+  _complicationObject: {fileID: 0}
+  _complicationProperties:
+    AsteroidVelocity:
+      Min: 0
+      Max: 0
+    SpawnPerSecond: 0
 --- !u!1 &2623292897299245037
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _highlightPrefab: {fileID: 2333884603196798006, guid: b99620a0cbf014830a42a16ebb6ece4f, type: 3}
-  _asteroidsSpawner: {fileID: 2623292896255966831}
+  _asteroidsSpawner: {fileID: 0}
 --- !u!1 &2623292898007467728
 GameObject:
   m_ObjectHideFlags: 0

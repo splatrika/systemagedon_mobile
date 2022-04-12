@@ -40,7 +40,6 @@ namespace Systemagedon.App.Gameplay
             for (int i = 0; i < planets; i++)
             {
                 Planet selectedPrefab = _planetPrefabs.SelectRandom();
-                //Planet instance = Planet.InitFrom(selectedPrefab;
                 RangeFloat actualFreeRadius = freeRadius;
                 actualFreeRadius.Min += _planetSize.Min / 2f;
                 actualFreeRadius.Max -= _planetSize.Min / 2f;

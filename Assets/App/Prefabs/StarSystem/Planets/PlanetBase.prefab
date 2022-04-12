@@ -41,14 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6240457637619344825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc2854c291950473c9cf66c06005f840, type: 3}
+  m_Script: {fileID: 11500000, guid: 98a597f4cbcb845eca481ace200a3d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 1
   _velocity: 1
   _dashProperties:
-    Strength: 2
-    Duration: 0.5
+    Strength: 1
+    Duration: 1
   _ruinsPrefab: {fileID: 7643857618070895387, guid: a12fcc6e5b5c74bd78cf16de07ebbdbe, type: 3}
 --- !u!54 &3269592004108362624
 Rigidbody:

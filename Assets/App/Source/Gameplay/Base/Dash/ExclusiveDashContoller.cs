@@ -9,6 +9,9 @@ namespace Systemagedon.App.Gameplay
     /// </summary>
     public class ExclusiveDashContoller : MonoBehaviour
     {
+        public event Action Touched;
+
+
         private IDash _target;
         private WorldTouchController _controller;
         private bool _inited = false;
@@ -48,6 +51,7 @@ namespace Systemagedon.App.Gameplay
             if (touchedDash == _target)
             {
                 touchedDash.ApplyDash();
+                Touched?.Invoke();
             }
         }
     }

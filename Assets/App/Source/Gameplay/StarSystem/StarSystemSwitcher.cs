@@ -34,6 +34,25 @@ namespace Systemagedon.App.Gameplay
         private int _planetsToSpawn;
         private int _level;
         private bool _callbackEnded = false;
+        private bool _inited = false;
+
+
+        public void Init(StarSystem startsWith = null)
+        {
+            if (_inited)
+            {
+                throw new InvalidOperationException("Already inited");
+            }
+            if (startsWith)
+            {
+                ChangeStarSystem(startsWith);
+            }
+            else
+            {
+                OnSwitch();
+            }
+            _inited = true;
+        }
 
 
         private void Start()
@@ -50,7 +69,10 @@ namespace Systemagedon.App.Gameplay
             {
                 _callback.CallbackEnded += OnCallbackEnded;
             }
-            ChangeStarSystem();
+            if (!_inited)
+            {
+                Init();
+            }
         }
 
 
@@ -88,15 +110,21 @@ namespace Systemagedon.App.Gameplay
             {
                 _planetsToSpawn++;
             }
-            ChangeStarSystem();
+            OnSwitch();
             SwitchEnded?.Invoke(_current);
         }
 
 
-        private void ChangeStarSystem()
+        private void OnSwitch()
+        {
+            ChangeStarSystem(_generator.GenerateAndSpawn(_planetsToSpawn));
+        }
+
+
+        private void ChangeStarSystem(StarSystem to)
         {
             OnRemoveCurrent();
-            _current = _generator.GenerateAndSpawn(_planetsToSpawn);
+            _current = to;
             ModelUpdated?.Invoke(_current);
             _current.SomePlanetRuined += OnSomePlanetRuined;
         }
