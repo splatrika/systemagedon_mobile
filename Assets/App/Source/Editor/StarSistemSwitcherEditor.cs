@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -37,4 +38,5 @@ public class StarSystemSwitcherEditor : Editor
         _target = target as StarSystemSwitcher;
     }
 }
+
 #endif

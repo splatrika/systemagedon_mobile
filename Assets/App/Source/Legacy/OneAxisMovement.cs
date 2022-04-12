@@ -1,9 +1,10 @@
 using UnityEngine;
 using System;
+using Systemagedon.App.Gameplay;
 
 namespace Systemagedon.App.Movement
 {
-    public class OneAxisMovement : MonoBehaviour
+    public class OneAxisMovement : MonoBehaviour, IPausable
     {
         public IOneAxisTransform Target { get => _target; }
         public float Velocity { get => _velocity; }
@@ -17,6 +18,7 @@ namespace Systemagedon.App.Movement
 
 
         private IOneAxisTransform _target;
+        private bool _paused;
         private bool _inited = false;
 
 
@@ -82,8 +84,24 @@ namespace Systemagedon.App.Movement
         }
 
 
+        public void Pause()
+        {
+            _paused = true;
+        }
+
+
+        public void Resume()
+        {
+            _paused = false;
+        }
+
+
         private void Update()
         {
+            if (_paused)
+            {
+                return;
+            }
             if (Target == null)
             {
                 throw new NullReferenceException("Target must be assigned");

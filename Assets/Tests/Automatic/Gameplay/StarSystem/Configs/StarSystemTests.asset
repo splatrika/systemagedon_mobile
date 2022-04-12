@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceef7d81058c34e61b601950e524d1cd, type: 3}
+  m_Name: StarSystemTests
+  m_EditorClassIdentifier: 
+  _planetPrefab: {fileID: 5771516282061207238, guid: 00d5816e95d3d48f38657c948daf0c23, type: 3}

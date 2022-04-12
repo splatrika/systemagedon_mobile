@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40968d20421d47c0b0c491c48275b71, type: 3}
   m_Name: AsteroidTests
   m_EditorClassIdentifier: 
-  _asteroidPrefab: {fileID: 4473058783281778657, guid: 4b57653e51d7a4e43bf8d9bd1c5c745f, type: 3}
-  _planetPrefab: {fileID: 4547331560114669619, guid: 74057d44dd82449cba6e1b8e91a3ce93, type: 3}
+  _asteroidPrefab: {fileID: 7443315447540714307, guid: 6038de4f2112240ac860c22686de6db1, type: 3}
+  _planetPrefab: {fileID: 5771516282061207238, guid: 8ec6d07a2bbde49649ea95ca4c2b4461, type: 3}
