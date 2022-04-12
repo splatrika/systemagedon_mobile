@@ -15,6 +15,7 @@ namespace Systemagedon.App.UI
 
         private Image _solid;
         private Color _transperent;
+        private Tween _current;
 
 
         private void Awake()
@@ -31,12 +32,16 @@ namespace Systemagedon.App.UI
         {
             _solid = null;
             Explosions.OnExplosion -= OnExplosion;
+            if (_current != null & _current.active)
+            {
+                _current.Kill();
+            }
         }
 
 
         private void OnExplosion(Transform sender)
         {
-            DOTween.To(() => _solid.color, x => _solid.color = x,
+            _current = DOTween.To(() => _solid.color, x => _solid.color = x,
                 _transperent, _duration).From(_blinkColor);
         }
     }
