@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 2072071866}
     - target: {fileID: 1590725593445920132, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _complicationProperties.SpawnPerSecond
-      value: 0.1
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1590725593445920132, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _complicationProperties.AsteroidVelocity.Max
@@ -174,9 +174,17 @@ PrefabInstance:
       propertyPath: _callbackObject
       value: 
       objectReference: {fileID: 394922578}
+    - target: {fileID: 2623292896255966828, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
+      propertyPath: _levelsToSwitch
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2623292896255966831, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623292896255966831, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
+      propertyPath: _frequency
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2623292897299245036, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _asteroidsSpawner

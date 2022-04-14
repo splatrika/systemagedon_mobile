@@ -45,6 +45,7 @@ namespace Systemagedon.App.Gameplay
 
         public int GetHighscore(IGameMode mode)
         {
+            if (Application.platform == RuntimePlatform.WebGLPlayer) return 0;
             if (_highscores == null) return 0;
             Highscore highscore = _highscores.Values.Find(
                 (highscore) => highscore.Mode == mode.GetStaticName());
@@ -54,6 +55,7 @@ namespace Systemagedon.App.Gameplay
 
         public void Send(int score, IGameMode mode)
         {
+            if (Application.platform == RuntimePlatform.WebGLPlayer) return;
             Highscore newHighscore = new Highscore()
             {
                 Mode = mode.GetStaticName(),
