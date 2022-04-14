@@ -156,11 +156,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1590725593445920132, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _complicationProperties.AsteroidVelocity.Max
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1590725593445920132, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _complicationProperties.AsteroidVelocity.Min
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2623292896201451286, guid: e2122c03d3db64e26ac02ae2076ef6e5, type: 3}
       propertyPath: _camera

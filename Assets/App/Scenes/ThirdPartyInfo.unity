@@ -236,6 +236,9 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'This work is licensed under the Creative Commons 0 License.
 
+        Author:
+        KIZILSUNGUR
+
         https://freesound.org/people/KIZILSUNGUR/sounds/72127/'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
@@ -376,7 +379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3022.4001
+      value: -3032.3
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -613,6 +616,9 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'This work is licensed under the Creative Commons 0 License.
 
+        Author:
+        smokinghotdog
+
         https://freesound.org/people/smokinghotdog/sounds/584232/'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
@@ -786,10 +792,12 @@ PrefabInstance:
       value: 'This work is licensed under the Creative Commons 0 License.
 
         Author:
+        Vrezerino
+
         https://freesound.org/people/Vrezerino/sounds/72609/
 
-        (Audio has
-        been a little bit modified)'
+        (Audio
+        has been a little bit modified)'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Name
@@ -929,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3293.1
+      value: -3357.9006
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -962,7 +970,7 @@ PrefabInstance:
       value: 'This work is licensed under the Attribution 3.0 License.
 
         Author:
-        https://freesound.org/people/deleted_user_5405837/sounds/399303/
+        deleted_user_5405837 https://freesound.org/people/deleted_user_5405837/sounds/399303/
 
         (Audio
         has been modified)'
@@ -1105,7 +1113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3398.9001
+      value: -3481.7007
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1411,7 +1419,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 422305904856208188, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Text
-      value: https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913
+      value: 'Author: Prodigious Creations
+
+        https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Name
@@ -1551,7 +1561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3502.8994
+      value: -3597.4
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1677,7 +1687,7 @@ PrefabInstance:
       value: 'This work is licensed under the Creative Commons 0 License.
 
         Author:
-        https://freesound.org/people/bigcat_smauls/sounds/222802/'
+        bigcat_smauls https://freesound.org/people/bigcat_smauls/sounds/222802/'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Name
@@ -1817,7 +1827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3200.7002
+      value: -3245.7007
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2184,7 +2194,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 793091081}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.102970846
+  m_Size: 0.08944132
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2239,6 +2249,8 @@ PrefabInstance:
       value: 'This work is licensed under the Attribution 3.0 License.
 
         Author:
+        akemov
+
         https://freesound.org/people/akemov/sounds/218520/'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
@@ -2379,7 +2391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3110.2002
+      value: -3139.0007
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3157,8 +3169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000004529953, y: 0}
-  m_SizeDelta: {x: 0, y: 3681.6152}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 3796.1504}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &2022807301
 PrefabInstance:
@@ -3169,7 +3181,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 422305904856208188, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Text
-      value: https://assetstore.unity.com/packages/2d/textures-materials/milky-way-skybox-94001
+      value: 'Author: Adam Bielecki
+
+        https://assetstore.unity.com/packages/2d/textures-materials/milky-way-skybox-94001'
       objectReference: {fileID: 0}
     - target: {fileID: 2266771419181569215, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_Name
@@ -3309,7 +3323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3589
+      value: -3709
       objectReference: {fileID: 0}
     - target: {fileID: 8714184835451261627, guid: 740034a54add54bf0bc273e0bceb572a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
