@@ -27,6 +27,7 @@ namespace Systemagedon.App.Gameplay.TutorialStates
         [SerializeField] private Canvas _canvas;
         [Header("Sound")]
         [SerializeField] private AudioSource _optionalBackground;
+        [SerializeField] private AudioSource _optionalReversedBackground;
         [SerializeField] private float _rewindStrength;
 
 
@@ -60,6 +61,10 @@ namespace Systemagedon.App.Gameplay.TutorialStates
 
         private IEnumerator CinemaCoroutine(ITutorialContext context)
         {
+            if (_optionalBackground)
+            {
+                _optionalBackground.Play();
+            }
             yield return new WaitForSeconds(_asteroidWait);
             Asteroid asteroid = context.AsteroidsGenerator.GenerateAndSpawn(
                 context.AsteroidPrefab, context.ExamplePlanet);
@@ -79,12 +84,12 @@ namespace Systemagedon.App.Gameplay.TutorialStates
             GameObject.Destroy(asteroid.gameObject);
             if (_optionalBackground)
             {
-                _optionalBackground.pitch = 0;
+                _optionalBackground.Pause();
             }
             yield return new WaitForSeconds(_rewindDelay);
-            if (_optionalBackground)
+            if (_optionalReversedBackground)
             {
-                _optionalBackground.pitch = -1 * _rewindStrength;
+                _optionalReversedBackground.Play();
             }
             RewindHUD rewindHUD = GameObject.Instantiate(_rewindHUDPrefab);
             rewindHUD.transform.SetParent(_canvas.transform, false);
@@ -97,7 +102,11 @@ namespace Systemagedon.App.Gameplay.TutorialStates
             yield return new WaitForSeconds(_rewindDuration);
             if (_optionalBackground)
             {
-                _optionalBackground.pitch = 1;
+                _optionalBackground.Play();
+            }
+            if (_optionalReversedBackground)
+            {
+                _optionalReversedBackground.Stop();
             }
             GameObject.Destroy(rewindHUD.gameObject);
             context.ChangeState<TapHintState>();
