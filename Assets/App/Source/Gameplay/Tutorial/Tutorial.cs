@@ -53,9 +53,9 @@ namespace Systemagedon.App.Gameplay
 
         private void Start()
         {
-            if (SystemagedonApp.StarSystemTransferService.IsNotEmpty())
+            if (GlobalInstaller.StarSystemTransferService.IsNotEmpty())
             {
-                _starSystem = SystemagedonApp.StarSystemTransferService.Take();
+                _starSystem = GlobalInstaller.StarSystemTransferService.Take();
             }
             else
             {

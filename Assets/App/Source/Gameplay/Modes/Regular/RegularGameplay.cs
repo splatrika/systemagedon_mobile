@@ -38,9 +38,9 @@ namespace Systemagedon.App.Gameplay
         {
             _atack = GetComponent<AsteroidsAttack>();
             _starSystem = GetComponent<StarSystemSwitcher>();
-            if (SystemagedonApp.StarSystemTransferService.IsNotEmpty())
+            if (GlobalInstaller.StarSystemTransferService.IsNotEmpty())
             {
-                StarSystem startsWith = SystemagedonApp.StarSystemTransferService.Take();
+                StarSystem startsWith = GlobalInstaller.StarSystemTransferService.Take();
                 _starSystem.Init(startsWith);
             }
             _complication = GetComponent<FrequencyComplication>();
@@ -72,7 +72,6 @@ namespace Systemagedon.App.Gameplay
 
         private void OnSomePlanetRuined(Planet planet)
         {
-            SystemagedonApp.HighscoresService.Send(Score, _mode);
             Lose?.Invoke(new RegularLoseContext()
             {
                 Ruined = planet,

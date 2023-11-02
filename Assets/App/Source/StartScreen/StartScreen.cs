@@ -67,7 +67,7 @@ namespace Systemagedon
                 yield return new WaitUntil(() => callbackFinished);
                 _callback.StartGameCallbackEnded -= onCallBackFinished;
             }
-            SystemagedonApp.StarSystemTransferService.Give(_starSystem);
+            GlobalInstaller.StarSystemTransferService.Give(_starSystem);
             SceneManager.LoadScene("Tutorial");
         }
 

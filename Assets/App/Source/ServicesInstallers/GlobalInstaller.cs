@@ -5,17 +5,14 @@ using UnityEngine;
 namespace Systemagedon.App
 {
 
-    public static class SystemagedonApp
+    public static class GlobalInstaller
     {
-        public static HighscoresService HighscoresService { get; private set; }
         public static StarSystemTransferService StarSystemTransferService
             { get; private set; }
 
 
-        static SystemagedonApp()
+        static GlobalInstaller()
         {
-            string highscoresPath = Application.persistentDataPath + "highscores.json";
-            HighscoresService = new HighscoresService(highscoresPath);
             StarSystemTransferService = new StarSystemTransferService();
         }
     }

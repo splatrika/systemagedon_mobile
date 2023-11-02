@@ -11,7 +11,6 @@ namespace Systemagedon.App.Gameplay
     {
         [SerializeField] private Button _restart;
         [SerializeField] private Text _score;
-        [SerializeField] private Text _highscore;
 
 
         private RegularMode _mode = new RegularMode();
@@ -25,8 +24,6 @@ namespace Systemagedon.App.Gameplay
                 throw new InvalidOperationException("Already inited");
             }
             _score.text = context.Score.ToString();
-            float highscore = SystemagedonApp.HighscoresService.GetHighscore(_mode);
-            _highscore.text = highscore.ToString();
             _inited = true;
         }
 

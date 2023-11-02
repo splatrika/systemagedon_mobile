@@ -41,7 +41,7 @@ namespace Systemagedon.App.Gameplay.TutorialStates
         private IEnumerator FinishCoroutine(ITutorialContext context)
         {
             yield return new WaitForSeconds(_waitToEnd);
-            SystemagedonApp.StarSystemTransferService.Give(context.StarSystem);
+            GlobalInstaller.StarSystemTransferService.Give(context.StarSystem);
             new RegularMode().LoadAndPlay();
         }
     }
