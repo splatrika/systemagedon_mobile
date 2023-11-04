@@ -7,7 +7,7 @@ namespace Systemagedon.App.Gameplay
 {
 
     [CreateAssetMenu(menuName = "Systemagedon/StarSystemGenerator Config")]
-    public class StarSystemGenerator : ScriptableObject
+    public class StarSystemGeneratorLegacy : ScriptableObject
     {
         [SerializeField] private float _maxRadius;
         [Header("Planets")]

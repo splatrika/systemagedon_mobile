@@ -20,7 +20,7 @@ namespace Systemagedon
         public IEnumerable<Planet> Planets { get => _starSystem.Planets; }
 
 
-        [SerializeField] private StarSystemGenerator _generator;
+        [SerializeField] private StarSystemGeneratorLegacy _generator;
         [SerializeField] private GameObject _callbackObject;
         [SerializeField] private string _thirdPartyScene;
 

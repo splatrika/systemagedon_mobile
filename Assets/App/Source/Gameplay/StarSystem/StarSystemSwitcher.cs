@@ -15,12 +15,12 @@ namespace Systemagedon.App.Gameplay
         public event Action<IStarSystemProvider> ModelUpdated;
 
 
-        public StarSystemGenerator Generator { get => _generator; }
+        public StarSystemGeneratorLegacy Generator { get => _generator; }
         public IEnumerable<Planet> Planets { get => _current?.Planets; }
         public IEnumerable<IDash> Dashes { get => _current?.Dashes; }
 
 
-        [SerializeField] private StarSystemGenerator _generator;
+        [SerializeField] private StarSystemGeneratorLegacy _generator;
         [SerializeField] private GameObject _complicationObject;
         [SerializeField] private GameObject _callbackObject;
         [SerializeField] int _levelsToSwitch;

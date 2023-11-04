@@ -25,7 +25,7 @@ namespace Systemagedon.App.Gameplay
 
 
         [SerializeField] private Camera _camera;
-        [SerializeField] private StarSystemGenerator _generator;
+        [SerializeField] private StarSystemGeneratorLegacy _generator;
         [SerializeField] private int _planets = 2;
         [SerializeField] private AsteroidsGenerator _asteroidsGenerator;
         [SerializeField] private Asteroid _asteroidPrefab;
