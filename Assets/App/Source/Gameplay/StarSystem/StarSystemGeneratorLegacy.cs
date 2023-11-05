@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Systemagedon.App.Extensions;
 using Systemagedon.App.Services;
@@ -20,6 +21,9 @@ namespace Systemagedon.App.Gameplay
         [Header("Star")]
         [SerializeField] private Star[] _starPrefabs;
         [SerializeField] private RangeFloat _starSize;
+
+        public IReadOnlyCollection<Planet> PlanetPrefabs => _planetPrefabs;
+        public IReadOnlyCollection<Star> StarPrefabs => _starPrefabs;
 
 
         public StarSystem GenerateAndSpawn(int planets)

@@ -37,7 +37,7 @@ namespace Systemagedon.App.Gameplay
         [SerializeField] private ComplicationProperties _complicationProperties;
 
 
-        private IStarSystemProvider _starSystem;
+        private ILegacyStarSystemProvider _starSystem;
         private List<Asteroid> _alive = new List<Asteroid>();
         private Complicator _complicator;
         private IComplication _complication;

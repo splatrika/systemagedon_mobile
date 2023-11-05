@@ -5,15 +5,15 @@ using System.Collections.Generic;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class StarSystem : MonoBehaviour, IStarSystemProvider, IDashesProvider,
+    public class StarSystem : MonoBehaviour, ILegacyStarSystemProvider, IDashesProvider,
         IPausable
     {
         public event Action<Planet> SomePlanetRuined;
-        public event Action<IStarSystemProvider> ModelUpdated;
+        public event Action<ILegacyStarSystemProvider> ModelUpdated;
 
 
-        public IEnumerable<Planet> Planets { get => GetPlanets(); }
-        public IEnumerable<IDash> Dashes { get => GetPlanets(); }
+        public IReadOnlyCollection<Planet> Planets { get => GetPlanets(); }
+        public IReadOnlyCollection<IDash> Dashes { get => GetPlanets(); }
 
 
         [SerializeField] private Planet[] _planetsInspector;
@@ -45,7 +45,7 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        public IEnumerable<Planet> GetPlanets()
+        public IReadOnlyCollection<Planet> GetPlanets()
         {
             Start();
             return _planets;

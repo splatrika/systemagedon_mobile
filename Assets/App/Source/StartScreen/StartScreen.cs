@@ -11,13 +11,13 @@ using Systemagedon.App.Extensions;
 namespace Systemagedon
 {
 
-    public class StartScreen : MonoBehaviour, IStarSystemProvider
+    public class StartScreen : MonoBehaviour, ILegacyStarSystemProvider
     {
         public event Action<Planet> SomePlanetRuined;
-        public event Action<IStarSystemProvider> ModelUpdated;
+        public event Action<ILegacyStarSystemProvider> ModelUpdated;
 
 
-        public IEnumerable<Planet> Planets { get => _starSystem.Planets; }
+        public IReadOnlyCollection<Planet> Planets { get => _starSystem.Planets; }
 
 
         [SerializeField] private StarSystemGeneratorLegacy _generator;

@@ -6,18 +6,18 @@ using System.Collections.Generic;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class StarSystemSwitcher : MonoBehaviour, IStarSystemProvider,
+    public class StarSystemSwitcher : MonoBehaviour, ILegacyStarSystemProvider,
         IDashesProvider, IComplicatable
     {
         public event Action<StarSystem> SwitchEnded;
         public event Action<StarSystem> SwitchStarted;
         public event Action<Planet> SomePlanetRuined;
-        public event Action<IStarSystemProvider> ModelUpdated;
+        public event Action<ILegacyStarSystemProvider> ModelUpdated;
 
 
         public StarSystemGeneratorLegacy Generator { get => _generator; }
-        public IEnumerable<Planet> Planets { get => _current?.Planets; }
-        public IEnumerable<IDash> Dashes { get => _current?.Dashes; }
+        public IReadOnlyCollection<Planet> Planets { get => _current?.Planets; }
+        public IReadOnlyCollection<IDash> Dashes { get => _current?.Dashes; }
 
 
         [SerializeField] private StarSystemGeneratorLegacy _generator;

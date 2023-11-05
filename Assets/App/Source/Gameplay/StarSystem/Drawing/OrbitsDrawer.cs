@@ -14,7 +14,7 @@ namespace Systemagedon.App.Gameplay
 
 
         private CircleDrawer[] _createdDrawers;
-        private IStarSystemProvider _starSystem;
+        private ILegacyStarSystemProvider _starSystem;
         private string invalidStarSystemMessage = "StarSystemObject must have" +
             "component that implements IStarSystemProvider";
 
@@ -38,7 +38,7 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        private void OnStarSystemUpdated(IStarSystemProvider sender)
+        private void OnStarSystemUpdated(ILegacyStarSystemProvider sender)
         {
             OnRemoveDrawers();
             _createdDrawers = new CircleDrawer[_starSystem.Planets.Count()];

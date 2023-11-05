@@ -5,7 +5,7 @@ namespace Systemagedon.App.Gameplay
 
     public interface IDashesProvider
     {
-        public IEnumerable<IDash> Dashes { get; }
+        public IReadOnlyCollection<IDash> Dashes { get; }
     }
 
 }

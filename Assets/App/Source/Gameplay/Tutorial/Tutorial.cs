@@ -8,16 +8,16 @@ using Systemagedon.App.Gameplay.TutorialStates;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class Tutorial : MonoBehaviour, ITutorialContext, IStarSystemProvider
+    public class Tutorial : MonoBehaviour, ITutorialContext, ILegacyStarSystemProvider
     {
-        public event Action<IStarSystemProvider> ModelUpdated;
+        public event Action<ILegacyStarSystemProvider> ModelUpdated;
         public event Action<Planet> SomePlanetRuined;
         public event Action<ITutorialState> StateChanged;
 
 
         public StarSystem StarSystem { get => _starSystem; }
         public Camera Camera { get => _camera; }
-        public IEnumerable<Planet> Planets { get => _starSystem.Planets; }
+        public IReadOnlyCollection<Planet> Planets { get => _starSystem.Planets; }
         public MonoBehaviour Component { get => this; }
         public Planet ExamplePlanet { get; set; }
         public AsteroidsGenerator AsteroidsGenerator { get => _asteroidsGenerator; }
