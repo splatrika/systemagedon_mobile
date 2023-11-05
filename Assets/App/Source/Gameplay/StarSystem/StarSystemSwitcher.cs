@@ -2,27 +2,24 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Systemagedon.App.Services;
 
 namespace Systemagedon.App.Gameplay
 {
 
-    public class StarSystemSwitcher : MonoBehaviour, ILegacyStarSystemProvider,
-        IDashesProvider, IComplicatable
+    public class StarSystemSwitcher : MonoBehaviour, IComplicatable
     {
-        public event Action<StarSystem> SwitchEnded;
-        public event Action<StarSystem> SwitchStarted;
-        public event Action<Planet> SomePlanetRuined;
-        public event Action<ILegacyStarSystemProvider> ModelUpdated;
+        public event Action SwitchEnded;
+        public event Action SwitchStarted;
 
 
-        public StarSystemGeneratorLegacy Generator { get => _generator; }
-        public IReadOnlyCollection<Planet> Planets { get => _current?.Planets; }
-        public IReadOnlyCollection<IDash> Dashes { get => _current?.Dashes; }
+        public StarSystemGeneratorLegacy Generator { get => _generatorLegacy; }
 
 
-        [SerializeField] private StarSystemGeneratorLegacy _generator;
+        [SerializeField] private StarSystemGeneratorLegacy _generatorLegacy;
         [SerializeField] private GameObject _complicationObject;
         [SerializeField] private GameObject _callbackObject;
+        [SerializeField] private StarSystemContainer _starSystemContainer;
         [SerializeField] int _levelsToSwitch;
         [SerializeField] int _planetsAtStart;
 
@@ -30,7 +27,7 @@ namespace Systemagedon.App.Gameplay
         private IComplication _complication;
         private Complicator _complicator;
         private ISwitchCallback _callback;
-        private StarSystem _current;
+        private IStarSystemGenerator _starSystemGenerator;
         private int _planetsToSpawn;
         private int _level;
         private bool _callbackEnded = false;
@@ -43,9 +40,10 @@ namespace Systemagedon.App.Gameplay
             {
                 throw new InvalidOperationException("Already inited");
             }
+            _starSystemGenerator = new StarSystemGenerator(_generatorLegacy.ParseSettings()); // todo pass settings 
             if (startsWith)
             {
-                ChangeStarSystem(startsWith);
+                Debug.LogWarning("StartWith temporary unsupported");
             }
             else
             {
@@ -83,7 +81,6 @@ namespace Systemagedon.App.Gameplay
             {
                 _callback.CallbackEnded -= OnCallbackEnded;
             }
-            OnRemoveCurrent();
         }
 
 
@@ -99,44 +96,26 @@ namespace Systemagedon.App.Gameplay
 
         private IEnumerator SwitchCoroutine()
         {
-            SwitchStarted?.Invoke(_current);
+            SwitchStarted?.Invoke();
             if (_callback != null)
             {
                 _callback.Run();
                 yield return new WaitUntil(() => _callbackEnded);
                 _callbackEnded = false;
             }
-            if (_planetsToSpawn != _generator.CalculateMaxPlanets())
+            if (_planetsToSpawn != _starSystemGenerator.CalculateMaxPlanets())
             {
                 _planetsToSpawn++;
             }
             OnSwitch();
-            SwitchEnded?.Invoke(_current);
+            SwitchEnded?.Invoke();
         }
 
 
         private void OnSwitch()
         {
-            ChangeStarSystem(_generator.GenerateAndSpawn(_planetsToSpawn));
-        }
-
-
-        private void ChangeStarSystem(StarSystem to)
-        {
-            OnRemoveCurrent();
-            _current = to;
-            ModelUpdated?.Invoke(_current);
-            _current.SomePlanetRuined += OnSomePlanetRuined;
-        }
-
-
-        private void OnRemoveCurrent()
-        {
-            if (_current)
-            {
-                Destroy(_current.gameObject);
-                _current.SomePlanetRuined -= OnSomePlanetRuined;
-            }
+            var generated = _starSystemGenerator.Generate(_planetsToSpawn);
+            _starSystemContainer.Load(generated);
         }
 
         private void OnCallbackEnded()
@@ -145,16 +124,10 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        private void OnSomePlanetRuined(Planet planet)
-        {
-            SomePlanetRuined?.Invoke(planet);
-        }
-
-
         private void OnDrawGizmos()
         {
-            _generator.DrawGizmos();
-            if (_generator.CalculateMaxPlanets() < 2)
+            _generatorLegacy.DrawGizmos();
+            if (_generatorLegacy.CalculateMaxPlanets() < 2)
             {
                 Gizmos.DrawIcon(Vector3.zero, "console.erroricon");
             }

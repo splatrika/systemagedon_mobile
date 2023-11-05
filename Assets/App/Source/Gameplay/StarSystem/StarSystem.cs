@@ -90,7 +90,8 @@ namespace Systemagedon.App.Gameplay
 
         private void Awake()
         {
-            _planets = new List<Planet>(_planetsInspector);
+            if (_planetsInspector != null)
+                _planets = new List<Planet>(_planetsInspector);
         }
 
 

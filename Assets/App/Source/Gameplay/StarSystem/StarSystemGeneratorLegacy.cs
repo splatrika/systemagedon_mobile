@@ -26,9 +26,9 @@ namespace Systemagedon.App.Gameplay
         public IReadOnlyCollection<Star> StarPrefabs => _starPrefabs;
 
 
-        public StarSystem GenerateAndSpawn(int planets)
+        public StarSystemSettings ParseSettings()
         {
-            var settings = new StarSystemSettings(
+            return new StarSystemSettings(
                 _maxRadius,
                 new PlanetSettings(
                     _planetPrefabs.Length,
@@ -38,6 +38,12 @@ namespace Systemagedon.App.Gameplay
                 new StarSettings(
                     _starPrefabs.Length,
                     _starSize));
+        }
+
+
+        public StarSystem GenerateAndSpawn(int planets)
+        {
+            var settings = ParseSettings();
 
             var generator = new StarSystemGenerator(settings);
             var generatedSnapshot = generator.Generate(planets);
@@ -63,16 +69,7 @@ namespace Systemagedon.App.Gameplay
 
         public int CalculateMaxPlanets()
         {
-            var settings = new StarSystemSettings(
-                _maxRadius,
-                new PlanetSettings(
-                    _planetPrefabs.Length,
-                    _planetSize,
-                    _planetSpeed,
-                    _minPlanetsDistance),
-                new StarSettings(
-                    _starPrefabs.Length,
-                    _starSize));
+            var settings = ParseSettings();
 
             var generator = new StarSystemGenerator(settings);
 

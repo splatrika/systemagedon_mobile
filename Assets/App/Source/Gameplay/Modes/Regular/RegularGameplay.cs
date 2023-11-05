@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
+using Systemagedon.App.Services;
 
 namespace Systemagedon.App.Gameplay
 {
@@ -19,10 +20,11 @@ namespace Systemagedon.App.Gameplay
 
 
         [SerializeField] private float _safeTime;
+        [SerializeField] private StarSystemContainer _starSystemContainer;
 
 
         private AsteroidsAttack _atack;
-        private StarSystemSwitcher _starSystem;
+        private StarSystemSwitcher _starSystemSwitcher;
         private FrequencyComplication _complication;
         private RegularScoreCounter _scoreCounter;
         private RegularMode _mode = new RegularMode();
@@ -37,19 +39,19 @@ namespace Systemagedon.App.Gameplay
         private void Awake()
         {
             _atack = GetComponent<AsteroidsAttack>();
-            _starSystem = GetComponent<StarSystemSwitcher>();
+            _starSystemSwitcher = GetComponent<StarSystemSwitcher>();
             if (GlobalInstaller.StarSystemTransferService.IsNotEmpty())
             {
                 StarSystem startsWith = GlobalInstaller.StarSystemTransferService.Take();
-                _starSystem.Init(startsWith);
+                _starSystemSwitcher.Init(startsWith);
             }
             _complication = GetComponent<FrequencyComplication>();
             _scoreCounter = gameObject.AddComponent<RegularScoreCounter>();
             _scoreCounter.Init(_atack);
             _scoreCounter.ScoreChanged += OnScoreChanged;
-            _starSystem.SomePlanetRuined += OnSomePlanetRuined;
-            _starSystem.SwitchStarted += OnSwitchStarted;
-            _starSystem.SwitchEnded += OnSwitchEnded;
+            _starSystemContainer.SomePlanetRuined += OnSomePlanetRuined;
+            _starSystemSwitcher.SwitchStarted += OnSwitchStarted;
+            _starSystemSwitcher.SwitchEnded += OnSwitchEnded;
             StartCoroutine(GameStartCoroutine());
         }
 
@@ -57,9 +59,9 @@ namespace Systemagedon.App.Gameplay
         private void OnDestroy()
         {
             _scoreCounter.ScoreChanged -= OnScoreChanged;
-            _starSystem.SomePlanetRuined -= OnSomePlanetRuined;
-            _starSystem.SwitchStarted -= OnSwitchStarted;
-            _starSystem.SwitchEnded -= OnSwitchEnded;
+            _starSystemContainer.SomePlanetRuined -= OnSomePlanetRuined;
+            _starSystemSwitcher.SwitchStarted -= OnSwitchStarted;
+            _starSystemSwitcher.SwitchEnded -= OnSwitchEnded;
         }
 
 
@@ -84,14 +86,14 @@ namespace Systemagedon.App.Gameplay
         }
 
 
-        private void OnSwitchStarted(StarSystem current)
+        private void OnSwitchStarted()
         {
             _atack.Clear();
             _atack.Stop();
         }
 
 
-        private void OnSwitchEnded(StarSystem newSystem)
+        private void OnSwitchEnded()
         {
             StartCoroutine(OnSwitchEndedCoroutine());
         }

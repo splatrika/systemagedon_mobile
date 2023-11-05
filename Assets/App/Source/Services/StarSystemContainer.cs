@@ -23,6 +23,7 @@ namespace Systemagedon.App.Services
         {
             TryDestroyCurrent();
             SpawnNew(snapshot);
+            ModelUpdated?.Invoke(this);
         }
 
         private void TryDestroyCurrent()
