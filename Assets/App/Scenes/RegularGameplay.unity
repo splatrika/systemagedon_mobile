@@ -1493,19 +1493,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _safeTime: 2
   _starSystemContainer: {fileID: 481362705}
---- !u!114 &2623292896402485680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2623292896402485685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b91cf7426e22447f83cf6d66599423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _frequency: 10
 --- !u!114 &2623292896402485681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1550,6 @@ GameObject:
   - component: {fileID: 2623292896402485646}
   - component: {fileID: 2623292896402485682}
   - component: {fileID: 2623292896402485681}
-  - component: {fileID: 2623292896402485680}
   - component: {fileID: 1590725593315615321}
   - component: {fileID: 2072071867}
   m_Layer: 0

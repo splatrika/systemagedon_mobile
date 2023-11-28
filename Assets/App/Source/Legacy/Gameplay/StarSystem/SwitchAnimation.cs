@@ -4,40 +4,25 @@ using System;
 
 namespace Systemagedon.App.Gameplay
 {
-
     public class SwitchAnimation : MonoBehaviour, IAnimation
     {
         public event Action CallbackEnded;
-
 
         public const string StartAnimation = "Start";
         public const string EndAnimation = "End";
         public const string IdleAnimation = "Idle";
 
-
         [SerializeField] private Animator _animator;
-
 
         public void Run()
         {
             StartCoroutine(AnimationCoroutine());
         }
 
-
         private void Start()
         {
             _animator.enabled = false;
         }
-
-        public void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                Debug.Log("tab");
-                StartCoroutine(AnimationCoroutine());
-            }
-        }
-
 
         private IEnumerator AnimationCoroutine()
         {
@@ -59,10 +44,11 @@ namespace Systemagedon.App.Gameplay
 
         private IEnumerator StartAnimationCoroutine()
         {
+            _animator.enabled = true;
             _animator.Play(StartAnimation);
             yield return null;
             AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
-            yield return new WaitForSeconds(state.length + 2);
+            yield return new WaitForSeconds(state.length);
         }
 
         private IEnumerator EndAnimationCoroutine()
@@ -74,7 +60,7 @@ namespace Systemagedon.App.Gameplay
             yield return new WaitForSeconds(state.length);
             _animator.Play(IdleAnimation);
             yield return null;
+            _animator.enabled = false;
         }
     }
-
 }
