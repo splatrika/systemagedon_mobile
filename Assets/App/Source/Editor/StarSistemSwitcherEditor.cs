@@ -5,10 +5,10 @@ using UnityEditor;
 using System.Collections;
 using Systemagedon.App.Gameplay;
 
-[CustomEditor(typeof(StarSystemSwitcher))]
+[CustomEditor(typeof(StarSystemSwitcherConfiguration))]
 public class StarSystemSwitcherEditor : Editor
 {
-    private StarSystemSwitcher _target;
+    private StarSystemSwitcherConfiguration _target;
     private Texture _error
         { get => EditorGUIUtility.FindTexture("console.erroricon"); }
 
@@ -35,7 +35,7 @@ public class StarSystemSwitcherEditor : Editor
 
     private void OnEnable()
     {
-        _target = target as StarSystemSwitcher;
+        _target = target as StarSystemSwitcherConfiguration;
     }
 }
 

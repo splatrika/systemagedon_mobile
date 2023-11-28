@@ -3,12 +3,13 @@ using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 using Systemagedon.App.Services;
+using Systemagedon.App.Scenario;
 
 namespace Systemagedon.App.Gameplay
 {
 
     [RequireComponent(typeof(AsteroidsAttack))]
-    [RequireComponent(typeof(StarSystemSwitcher))]
+    [RequireComponent(typeof(StarSystemSwitcherConfiguration))]
     [RequireComponent(typeof(FrequencyComplication))]
     public class RegularGameplay : MonoBehaviour, IScore
     {
@@ -24,10 +25,10 @@ namespace Systemagedon.App.Gameplay
 
 
         private AsteroidsAttack _atack;
-        private StarSystemSwitcher _starSystemSwitcher;
         private FrequencyComplication _complication;
         private RegularScoreCounter _scoreCounter;
         private RegularMode _mode = new RegularMode();
+        private IStarSystemSwitcher _starSystemSwitcher;
 
 
         public void Restart()
@@ -35,23 +36,22 @@ namespace Systemagedon.App.Gameplay
             _mode.LoadAndPlay();
         }
 
+        public void Init(IStarSystemSwitcher starSystemSwitcher)
+        {
+            _starSystemSwitcher = starSystemSwitcher;
+            _starSystemSwitcher.SwitchStarted += OnSwitchStarted;
+            _starSystemSwitcher.SwitchEnded += OnSwitchEnded;
+        }
+
 
         private void Awake()
         {
             _atack = GetComponent<AsteroidsAttack>();
-            _starSystemSwitcher = GetComponent<StarSystemSwitcher>();
-            if (GlobalInstaller.StarSystemTransferService.IsNotEmpty())
-            {
-                StarSystem startsWith = GlobalInstaller.StarSystemTransferService.Take();
-                _starSystemSwitcher.Init(startsWith);
-            }
             _complication = GetComponent<FrequencyComplication>();
             _scoreCounter = gameObject.AddComponent<RegularScoreCounter>();
             _scoreCounter.Init(_atack);
             _scoreCounter.ScoreChanged += OnScoreChanged;
             _starSystemContainer.SomePlanetRuined += OnSomePlanetRuined;
-            _starSystemSwitcher.SwitchStarted += OnSwitchStarted;
-            _starSystemSwitcher.SwitchEnded += OnSwitchEnded;
             StartCoroutine(GameStartCoroutine());
         }
 

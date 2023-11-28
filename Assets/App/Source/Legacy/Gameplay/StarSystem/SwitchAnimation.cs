@@ -5,7 +5,7 @@ using System;
 namespace Systemagedon.App.Gameplay
 {
 
-    public class SwitchAnimation : MonoBehaviour, ISwitchCallback
+    public class SwitchAnimation : MonoBehaviour, IAnimation
     {
         public event Action CallbackEnded;
 
@@ -29,23 +29,51 @@ namespace Systemagedon.App.Gameplay
             _animator.enabled = false;
         }
 
+        public void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                Debug.Log("tab");
+                StartCoroutine(AnimationCoroutine());
+            }
+        }
+
 
         private IEnumerator AnimationCoroutine()
         {
             _animator.enabled = true;
+            yield return StartAnimationCoroutine();
+            yield return null;
+            CallbackEnded?.Invoke();
+            yield return EndAnimationCoroutine();
+            _animator.enabled = false;
+            
+        }
+
+        public IEnumerator RunAndWaitUntilEnd()
+        {
+            yield return StartAnimationCoroutine();
+            yield return null;
+            StartCoroutine(EndAnimationCoroutine()); // do not wait for end animation
+        }
+
+        private IEnumerator StartAnimationCoroutine()
+        {
             _animator.Play(StartAnimation);
             yield return null;
             AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
-            yield return new WaitForSeconds(state.length);
+            yield return new WaitForSeconds(state.length + 2);
+        }
+
+        private IEnumerator EndAnimationCoroutine()
+        {
             _animator.Play(EndAnimation);
             CallbackEnded?.Invoke();
             yield return null;
-            state = _animator.GetCurrentAnimatorStateInfo(0);
+            var state = _animator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForSeconds(state.length);
             _animator.Play(IdleAnimation);
             yield return null;
-            _animator.enabled = false;
-            
         }
     }
 
