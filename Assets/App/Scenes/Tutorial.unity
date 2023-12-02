@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.042225763, g: 0.03694263, b: 0.044709317, a: 1}
+  m_IndirectSpecularColor: {r: 0.04433894, g: 0.038568206, b: 0.04682415, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -227,7 +227,7 @@ RectTransform:
   m_Pivot: {x: 0, y: 0}
 --- !u!95 &94048729
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -240,10 +240,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &387589150
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +657,7 @@ GameObject:
   - component: {fileID: 1672010070}
   - component: {fileID: 1672010069}
   - component: {fileID: 1672010071}
+  - component: {fileID: 1672010072}
   m_Layer: 0
   m_Name: Tutorial
   m_TagString: Untagged
@@ -675,7 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1001285033}
-  _generator: {fileID: 11400000, guid: 1c876e1589552459487d9df820c38c82, type: 2}
+  _starSystemSettings: {fileID: 11400000, guid: 1c876e1589552459487d9df820c38c82, type: 2}
+  _starSystemContainer: {fileID: 1672010072}
   _planets: 2
   _asteroidsGenerator: {fileID: 11400000, guid: 10a576855757b40c085fb1d45ba840b1, type: 2}
   _asteroidPrefab: {fileID: 7443315447540714307, guid: 6038de4f2112240ac860c22686de6db1, type: 3}
@@ -735,6 +739,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 1001285033}
   _rayCastDistance: 100
+--- !u!114 &1672010072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672010068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f402c4ecc704712ad1e94e78423085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 1c876e1589552459487d9df820c38c82, type: 2}
 --- !u!224 &1972755402 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6680033551955924431, guid: f04c62e90f0764754ad70bacac653f9c, type: 3}

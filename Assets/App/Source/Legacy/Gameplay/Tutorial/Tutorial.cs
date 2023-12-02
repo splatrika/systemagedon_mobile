@@ -4,20 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systemagedon.App.Extensions;
 using Systemagedon.App.Gameplay.TutorialStates;
+using Systemagedon.App.Services;
 
 namespace Systemagedon.App.Gameplay
 {
 
-    public class Tutorial : MonoBehaviour, ITutorialContext, ILegacyStarSystemProvider
+    public class Tutorial : MonoBehaviour, ITutorialContext
     {
-        public event Action<ILegacyStarSystemProvider> ModelUpdated;
-        public event Action<Planet> SomePlanetRuined;
-        public event Action<ITutorialState> StateChanged;
-
-
         public StarSystem StarSystem { get => _starSystem; }
         public Camera Camera { get => _camera; }
-        public IReadOnlyCollection<Planet> Planets { get => _starSystem.Planets; }
         public MonoBehaviour Component { get => this; }
         public Planet ExamplePlanet { get; set; }
         public AsteroidsGenerator AsteroidsGenerator { get => _asteroidsGenerator; }
@@ -25,7 +20,8 @@ namespace Systemagedon.App.Gameplay
 
 
         [SerializeField] private Camera _camera;
-        [SerializeField] private StarSystemGeneratorLegacy _generator;
+        [SerializeField] private StarSystemConfiguration _starSystemSettings;
+        [SerializeField] private StarSystemContainer _starSystemContainer;
         [SerializeField] private int _planets = 2;
         [SerializeField] private AsteroidsGenerator _asteroidsGenerator;
         [SerializeField] private Asteroid _asteroidPrefab;
@@ -53,16 +49,18 @@ namespace Systemagedon.App.Gameplay
 
         private void Start()
         {
-            if (GlobalInstaller.StarSystemTransferService.IsNotEmpty())
+            if (GlobalInstaller.StarSystemTransferService.IsSnapshotStored())
             {
-                _starSystem = GlobalInstaller.StarSystemTransferService.Take();
+                var snapshot = GlobalInstaller.StarSystemTransferService.TakeSnapshot();
+                _starSystemContainer.Load(snapshot);
             }
             else
             {
-                _starSystem = _generator.GenerateAndSpawn(_planets);
+                var generator = new StarSystemGenerator(_starSystemSettings.ParseSettings());
+                _starSystemContainer.Load(generator.Generate(2));
             }
+            _starSystem = FindObjectOfType<StarSystem>(); // todo refactor
             ExamplePlanet = _starSystem.Planets.SelectRandom();
-            ModelUpdated?.Invoke(this);
             ChangeState<IntroductionCinemaState>();
         }
 
@@ -89,9 +87,9 @@ namespace Systemagedon.App.Gameplay
 
         private void OnDrawGizmos()
         {
-            if (_generator)
+            if (_starSystemSettings)
             {
-                _generator.DrawGizmos();
+                _starSystemSettings.DrawGizmos();
             }
             if (_asteroidsGenerator)
             {

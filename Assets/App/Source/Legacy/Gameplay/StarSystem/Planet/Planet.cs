@@ -14,6 +14,7 @@ namespace Systemagedon.App.Gameplay
         public event Action<Planet, PlanetRuins> RuinedAdvanced;
 
 
+        public Planet Prefab { get; private set; }
         public float Radius { get => _radius; }
         public Vector3 Center { get => _orbit.Center; }
         public Planet OriginalPrefab { get => _originalPrefab; }
@@ -40,6 +41,7 @@ namespace Systemagedon.App.Gameplay
             float anglePosition = 0)
         {
             Planet instance = Instantiate(prefab);
+            instance.Prefab = prefab;
             instance._originalPrefab = prefab;
             instance._radius = orbitRadius;
             instance._velocity = velocity;

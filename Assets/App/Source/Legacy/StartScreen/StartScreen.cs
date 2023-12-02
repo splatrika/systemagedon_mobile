@@ -6,26 +6,18 @@ using Systemagedon.App;
 using System;
 using UnityEngine.SceneManagement;
 using Systemagedon.App.Extensions;
-
+using Systemagedon.App.Services;
 
 namespace Systemagedon
 {
 
-    public class StartScreen : MonoBehaviour, ILegacyStarSystemProvider
+    public class StartScreen : MonoBehaviour
     {
-        public event Action<Planet> SomePlanetRuined;
-        public event Action<ILegacyStarSystemProvider> ModelUpdated;
-
-
-        public IReadOnlyCollection<Planet> Planets { get => _starSystem.Planets; }
-
-
-        [SerializeField] private StarSystemGeneratorLegacy _generator;
+        [SerializeField] private StarSystemConfiguration _starSystemSettings;
         [SerializeField] private GameObject _callbackObject;
         [SerializeField] private string _thirdPartyScene;
+        [SerializeField] private StarSystemContainer _starSystemContainer;
 
-
-        private StarSystem _starSystem;
         private IStarScreenCallback _callback;
         private const int _planetsCount = 2;
 
@@ -44,7 +36,11 @@ namespace Systemagedon
 
         private void Awake()
         {
-            _starSystem = _generator.GenerateAndSpawn(_planetsCount);
+            var generator = new StarSystemGenerator(
+                _starSystemSettings.ParseSettings());
+            var starSystem = generator.Generate(_planetsCount);
+            _starSystemContainer.Load(starSystem);
+
             OnValidate();
         }
 
@@ -67,16 +63,17 @@ namespace Systemagedon
                 yield return new WaitUntil(() => callbackFinished);
                 _callback.StartGameCallbackEnded -= onCallBackFinished;
             }
-            GlobalInstaller.StarSystemTransferService.Give(_starSystem);
+            GlobalInstaller.StarSystemTransferService.GiveSnapshot(
+                _starSystemContainer.Read()); // todo use snapshot
             SceneManager.LoadScene("Tutorial");
         }
 
 
         private void OnDrawGizmos()
         {
-            if (_generator)
+            if (_starSystemSettings)
             {
-                _generator.DrawGizmos();
+                _starSystemSettings.DrawGizmos();
             }
         }
 

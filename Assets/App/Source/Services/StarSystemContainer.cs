@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Systemagedon.App.Configuration;
 using Systemagedon.App.Gameplay;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Systemagedon.App.Services
     public class StarSystemContainer : MonoBehaviour, IStarSystemContainer, ILegacyStarSystemProvider, IDashesProvider
     {
         [SerializeField]
-        private StarSystemGeneratorLegacy _settings;
+        private StarSystemConfiguration _settings;
 
         private Systemagedon.App.Gameplay.StarSystem _current;
 
@@ -24,6 +25,24 @@ namespace Systemagedon.App.Services
             TryDestroyCurrent();
             SpawnNew(snapshot);
             ModelUpdated?.Invoke(this);
+        }
+
+        public StarSystemSnapshot Read()
+        {
+            if (!_current) throw new InvalidOperationException("There is no star system");
+
+            return new StarSystemSnapshot(
+                _current.Planets
+                    .Select(x => new PlanetSnapshot(
+                        IndexOf(_settings.PlanetPrefabs, x.Prefab),
+                        x.Radius,
+                        x.Velocity, // todo maybe bugs while dash. Fix
+                        x.Scale,
+                        x.AnglePosition))
+                    .ToArray(),
+                new StarSnapshot(
+                    IndexOf(_settings.StarPrefabs, _current.Star.Prefab),
+                    _current.Star.Scale));
         }
 
         private void TryDestroyCurrent()
@@ -58,13 +77,18 @@ namespace Systemagedon.App.Services
                         p.AnglePosition))
                 .ToArray();
 
-            var genereatedStar = Instantiate(_settings.StarPrefabs.ElementAt(snapshot.Star.PrefabIndex));
-            genereatedStar.Init(snapshot.Star.Scale);
+            var starPrefab = _settings.StarPrefabs.ElementAt(snapshot.Star.PrefabIndex);
+            var genereatedStar = Star.InitFrom(starPrefab, snapshot.Star.Scale);
 
             var starSystem = new GameObject().AddComponent<Systemagedon.App.Gameplay.StarSystem>();
             starSystem.Init(generatedPlanets, genereatedStar);
 
             return starSystem;
+        }
+
+        private int IndexOf<T>(IReadOnlyCollection<T> collection, T element)
+        {
+            return collection.TakeWhile(x => !x.Equals(element)).Count();
         }
 
         private void OnDestroy()

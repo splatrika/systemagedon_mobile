@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 namespace Systemagedon.App.Gameplay
 {
 
-    [CreateAssetMenu(menuName = "Systemagedon/StarSystemGenerator Config")]
-    public class StarSystemGeneratorLegacy : ScriptableObject
+    [CreateAssetMenu(menuName = "Systemagedon/Star System Config")]
+    public class StarSystemConfiguration : ScriptableObject
     {
         [SerializeField] private float _maxRadius;
         [Header("Planets")]
@@ -39,43 +39,6 @@ namespace Systemagedon.App.Gameplay
                     _starPrefabs.Length,
                     _starSize));
         }
-
-
-        public StarSystem GenerateAndSpawn(int planets)
-        {
-            var settings = ParseSettings();
-
-            var generator = new StarSystemGenerator(settings);
-            var generatedSnapshot = generator.Generate(planets);
-            var generatedPlanets = generatedSnapshot.Planets
-                .Select(p =>
-                    Planet.InitFrom(
-                        _planetPrefabs[p.PrefabIndex],
-                        p.OrbitRadius,
-                        p.Velocity,
-                        p.Scale,
-                        p.AnglePosition))
-                .ToArray();
-
-            var selectedStarPrefab = _starPrefabs[generatedSnapshot.Star.PrefabIndex];
-            Star starInstance = Instantiate(selectedStarPrefab);
-            starInstance.Init(generatedSnapshot.Star.Scale);
-
-            StarSystem generated = new GameObject().AddComponent<StarSystem>();
-            generated.Init(generatedPlanets, starInstance);
-            return generated;
-        }
-
-
-        public int CalculateMaxPlanets()
-        {
-            var settings = ParseSettings();
-
-            var generator = new StarSystemGenerator(settings);
-
-            return generator.CalculateMaxPlanets();
-        }
-
 
         public void DrawGizmos()
         {

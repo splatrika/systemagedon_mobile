@@ -12,8 +12,9 @@ namespace Systemagedon.App.Gameplay
         public event Action<ILegacyStarSystemProvider> ModelUpdated;
 
 
-        public IReadOnlyCollection<Planet> Planets { get => GetPlanets(); }
-        public IReadOnlyCollection<IDash> Dashes { get => GetPlanets(); }
+        public IReadOnlyCollection<Planet> Planets  => GetPlanets();
+        public IReadOnlyCollection<IDash> Dashes => GetPlanets();
+        public Star Star => GetStar();
 
 
         [SerializeField] private Planet[] _planetsInspector;
@@ -49,6 +50,12 @@ namespace Systemagedon.App.Gameplay
         {
             Start();
             return _planets;
+        }
+
+        public Star GetStar()
+        {
+            Start();
+            return _star;
         }
 
 

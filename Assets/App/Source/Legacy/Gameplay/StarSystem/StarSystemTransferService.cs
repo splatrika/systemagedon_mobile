@@ -1,4 +1,5 @@
 ﻿using System;
+using Systemagedon.App.Services;
 using UnityEngine;
 
 
@@ -7,34 +8,30 @@ namespace Systemagedon.App.Gameplay
 
     public class StarSystemTransferService
     {
-        private StarSystem _stored;
+        private StarSystemSnapshot _starSystemSnapshot;
 
-
-        public bool IsNotEmpty()
+        public bool IsSnapshotStored()
         {
-            return _stored;
+            return _starSystemSnapshot != null;
         }
 
-
-        public void Give(StarSystem starSystem)
+        public void GiveSnapshot(StarSystemSnapshot starSystemSnapshot)
         {
-            if (IsNotEmpty())
+            if (IsSnapshotStored())
             {
                 throw new InvalidOperationException("Star system already given and not taken yet");
             }
-            GameObject.DontDestroyOnLoad(starSystem);
-            _stored = starSystem;
+            _starSystemSnapshot = starSystemSnapshot;
         }
 
-
-        public StarSystem Take()
+        public StarSystemSnapshot TakeSnapshot()
         {
-            if (!IsNotEmpty())
+            if (!IsSnapshotStored())
             {
                 throw new InvalidOperationException("We haven't star system to transfer");
             }
-            StarSystem result = _stored;
-            _stored = null;
+            var result = _starSystemSnapshot;
+            _starSystemSnapshot = null;
             return result;
         }
     }

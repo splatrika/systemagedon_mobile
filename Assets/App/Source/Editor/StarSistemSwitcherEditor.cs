@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using Systemagedon.App.Gameplay;
+using Systemagedon.App.Services;
+using Systemagedon.App.Configuration;
 
 [CustomEditor(typeof(StarSystemSwitcherConfiguration))]
 public class StarSystemSwitcherEditor : Editor
@@ -16,7 +18,9 @@ public class StarSystemSwitcherEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        int maxPlanets = _target.Generator.CalculateMaxPlanets();
+        var settings = _target.StarSystemConfiguration.ParseSettings();
+        var generator = new StarSystemGenerator(settings); // todo dont init generator
+        var maxPlanets = generator.CalculateMaxPlanets();
         if (maxPlanets < 2)
         {
             GUILayout.BeginHorizontal("box");

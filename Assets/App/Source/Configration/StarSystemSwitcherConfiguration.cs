@@ -3,14 +3,15 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Systemagedon.App.Services;
+using Systemagedon.App.Gameplay;
 
-namespace Systemagedon.App.Gameplay
+namespace Systemagedon.App.Configuration
 {
     public class StarSystemSwitcherConfiguration : MonoBehaviour
     {
-        public StarSystemGeneratorLegacy Generator { get => _generatorLegacy; }
+        public StarSystemConfiguration StarSystemConfiguration { get => _starSystemConfiguration; }
 
-        [SerializeField] private StarSystemGeneratorLegacy _generatorLegacy;
+        [SerializeField] private StarSystemConfiguration _starSystemConfiguration;
         [SerializeField] private GameObject _complicationObject;
         [SerializeField] private GameObject _callbackObject;
         [SerializeField] private StarSystemContainer _starSystemContainer;

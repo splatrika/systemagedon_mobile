@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Systemagedon.App.Configuration;
 using Systemagedon.App.Gameplay;
 using Systemagedon.App.Scenario;
 using Systemagedon.App.Services;
@@ -15,7 +16,7 @@ public class RegularGameplayStartup : MonoInstaller
     private StarSystemContainer _starSystemContainer;
 
     [SerializeField]
-    private StarSystemGeneratorLegacy _starSystemConfiguration;
+    private StarSystemConfiguration _starSystemConfiguration;
 
     [SerializeField]
     private StarSystemSwitcherConfiguration _starSystemSwitcherConfiguration;

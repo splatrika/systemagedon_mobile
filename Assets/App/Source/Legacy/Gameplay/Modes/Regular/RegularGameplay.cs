@@ -4,6 +4,7 @@ using System;
 using UnityEngine.SceneManagement;
 using Systemagedon.App.Services;
 using Systemagedon.App.Scenario;
+using Systemagedon.App.Configuration;
 
 namespace Systemagedon.App.Gameplay
 {
